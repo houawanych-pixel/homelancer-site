@@ -1,433 +1,917 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Homelancer — Mech Shopfronts (scroll demo) | Hova Matrix</title>
-<link rel="stylesheet" href="mechscroll.css"><script src="mechscroll.js" defer></script></head>
-<body><header class="top"><span class="brand">HOVA <span>MATRIX</span></span><span class="tag">Demo · not live</span></header>
-<section class="intro"><span class="eyebrow">Homelancer · star system shopfronts</span><h1>HOMELANCER</h1>
-<p>Scroll down and each faction mech walks through its home system. Scroll up and it walks back.</p>
-<span class="hint">↓ scroll to walk · ↑ scroll to walk back</span></section>
-<main id="systems"></main>
-<footer class="foot">Demo build v02. Veranthos, Dreadholm and Malachar show the owner's own blue-screen mech walk clips, chroma-keyed. Raptian Major, Cynthara and Genesis still use stand-in Blender renders of in-game mechs. Faction liveries are colour tints, not repaints.
-Shop items and prices are PLACEHOLDER. Systems, factions and colours come from star map v4 (draft, not final).</footer>
-<div class="hud" aria-hidden="true"></div>
-<script type="application/json" id="systems-data">{
-  "schemaVersion": 2,
-  "pxPerFrame": 14,
-  "note": "Prices and non-mech items are PLACEHOLDER. Systems/factions/roles/counts from starmap_v4_tiles.csv; colors from approved map v4; themes from Star System Catalog v2 (Bible facts). v02: owner's real clips on Veranthos/Dreadholm/Malachar; Blender stand-ins on Raptian Major/Cynthara/Genesis.",
-  "mechs": {
-    "tan_navy_mecha": {
-      "label": "Tan/Navy Mecha",
-      "source": "GitHub houawanych-pixel/homelancer-digital @ homelancer-v1.2: assets/mechs/tan_navy_mecha.glb (own 'Walk' action)",
-      "sheet": {
-        "webp": "assets/mechs/tannavy/sheet.webp",
-        "png": "assets/mechs/tannavy/sheet.png",
-        "cols": 8,
-        "rows": 3,
-        "frames": 24,
-        "frameW": 256,
-        "frameH": 330
-      },
-      "video": {
-        "webm": "assets/mechs/tannavy/walk.webm",
-        "animWebp": "assets/mechs/tannavy/walk_anim.webp"
-      },
-      "pngSequence": "assets/mechs/tannavy/frames/",
-      "real": false,
-      "motion": "across",
-      "standIn": "Blender blue-screen render (stand-in)"
-    },
-    "black_gold_mecha": {
-      "label": "Black/Gold Mecha",
-      "source": "GitHub houawanych-pixel/homelancer-digital @ homelancer-v1.2: assets/mechs/black_gold_mecha.glb (own 'Walk' action)",
-      "sheet": {
-        "webp": "assets/mechs/blackgold/sheet.webp",
-        "png": "assets/mechs/blackgold/sheet.png",
-        "cols": 8,
-        "rows": 3,
-        "frames": 24,
-        "frameW": 262,
-        "frameH": 330
-      },
-      "video": {
-        "webm": "assets/mechs/blackgold/walk.webm",
-        "animWebp": "assets/mechs/blackgold/walk_anim.webp"
-      },
-      "pngSequence": "assets/mechs/blackgold/frames/",
-      "real": false,
-      "motion": "across",
-      "standIn": "Blender blue-screen render (stand-in)"
-    },
-    "boss_mech": {
-      "label": "Boss Mech",
-      "source": "Drive: Boss Mech/boss_mech_tripo_rigged_20anims.glb (1H7Ou7kJFa04h6BqS8zauW8Y5xHh6D8kR) + 'walk' from Animation Library/anim_pack_04 (1Gr_qfzfGWLcUwJETMAyGY009opfNkWIk)",
-      "sheet": {
-        "webp": "assets/mechs/boss/sheet.webp",
-        "png": "assets/mechs/boss/sheet.png",
-        "cols": 8,
-        "rows": 4,
-        "frames": 28,
-        "frameW": 250,
-        "frameH": 330
-      },
-      "video": {
-        "webm": "assets/mechs/boss/walk.webm",
-        "animWebp": "assets/mechs/boss/walk_anim.webp"
-      },
-      "pngSequence": "assets/mechs/boss/frames/",
-      "real": false,
-      "motion": "across",
-      "standIn": "Blender blue-screen render (stand-in)"
-    },
-    "owner_white_teal": {
-      "label": "White/Teal Mech",
-      "real": true,
-      "motion": "toward",
-      "source": "Owner blue-screen clip1.mp4 (672x448, 24 fps, 6.04 s)",
-      "loop": "frames 54–92 (39)",
-      "sheet": {
-        "webp": "assets/mechs/owner1/sheet.webp",
-        "png": "assets/mechs/owner1/sheet.png",
-        "cols": 8,
-        "rows": 5,
-        "frames": 39,
-        "frameW": 236,
-        "frameH": 300
-      },
-      "video": {
-        "webm": "assets/mechs/owner1/walk.webm",
-        "animWebp": "assets/mechs/owner1/walk_anim.webp"
-      },
-      "pngSequence": "assets/mechs/owner1/frames/"
-    },
-    "owner_red_winged": {
-      "label": "Red Winged Mech",
-      "real": true,
-      "motion": "toward",
-      "source": "Owner blue-screen clip2.mp4 (672x448, 24 fps, 6.04 s)",
-      "loop": "frames 59–96 (38)",
-      "sheet": {
-        "webp": "assets/mechs/owner2/sheet.webp",
-        "png": "assets/mechs/owner2/sheet.png",
-        "cols": 8,
-        "rows": 5,
-        "frames": 38,
-        "frameW": 250,
-        "frameH": 300
-      },
-      "video": {
-        "webm": "assets/mechs/owner2/walk.webm",
-        "animWebp": "assets/mechs/owner2/walk_anim.webp"
-      },
-      "pngSequence": "assets/mechs/owner2/frames/"
-    },
-    "owner_white_darkteal": {
-      "label": "White/Dark-Teal Heavy Mech",
-      "real": true,
-      "motion": "toward",
-      "source": "Owner blue-screen clip3.mp4 (672x448, 24 fps, 6.04 s)",
-      "loop": "frames 92–134 (43)",
-      "sheet": {
-        "webp": "assets/mechs/owner3/sheet.webp",
-        "png": "assets/mechs/owner3/sheet.png",
-        "cols": 8,
-        "rows": 6,
-        "frames": 43,
-        "frameW": 220,
-        "frameH": 300
-      },
-      "video": {
-        "webm": "assets/mechs/owner3/walk.webm",
-        "animWebp": "assets/mechs/owner3/walk_anim.webp"
-      },
-      "pngSequence": "assets/mechs/owner3/frames/"
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Homelancer — test the beta</title>
+<meta name="description" content="Homelancer: a space game you fly from your phone. Sixty-seven star systems, ships that turn into mechs. Test the beta in your browser.">
+<meta name="theme-color" content="#04060b">
+<style>*, *::before, *::after { box-sizing: border-box; } html, body { margin: 0; } img { max-width: 100%; }</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Chakra+Petch:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap">
+<style>
+/* One fixed stage (sky, planet, cutout sprites, flash) and a tall column that scrolls over it.
+   Everything on the stage is a pure function of the scroll position, so scrolling back runs the film backwards. */
+:root {
+  color-scheme: dark;
+  --void: #04060b;
+  --hull: #0b111b;
+  --ink: #eaf0f7;
+  --dim: #93a1b8;
+  --line: rgba(190, 210, 235, 0.22);
+  --fac: #39c6dc;
+  --display: "Big Shoulders Display", "Arial Narrow", "Roboto Condensed", Impact, sans-serif;
+  --body: "Space Grotesk", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mono: "Chakra Petch", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --warn: #ffd21e;
+  --gutter: clamp(16px, 5vw, 64px);
+}
+body { background: var(--void); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.55; overflow-x: hidden; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--fac); outline-offset: 3px; }
+
+.stage { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: var(--void); }
+.sky { position: absolute; inset: -8%; background: url("a/sky_solara.jpg") center / cover; filter: saturate(0.9) brightness(0.55); will-change: transform; }
+.veil { position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 45%, rgba(4, 6, 11, 0) 0%, rgba(4, 6, 11, 0.5) 70%, rgba(4, 6, 11, 0.9) 100%); }
+#globe, #fx { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.sun { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform; }
+.sun i { position: absolute; left: -300px; top: -300px; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, #fff 0%, #fff6dc 7%, rgba(255, 214, 140, 0.85) 13%, rgba(255, 170, 90, 0.34) 30%, rgba(255, 140, 70, 0.1) 52%, rgba(0, 0, 0, 0) 70%); }
+.flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 48%, #fff 0%, #ffe9c2 30%, #ff9a3d 62%, rgba(255, 90, 30, 0.7) 100%); opacity: 0; }
+
+.bar { position: fixed; z-index: 5; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; align-items: center; padding: calc(env(safe-area-inset-top, 0px) + 12px) var(--gutter) 12px; background: linear-gradient(rgba(4, 6, 11, 0.8), rgba(4, 6, 11, 0)); }
+.mark { font-family: var(--display); font-weight: 800; letter-spacing: 0.14em; font-size: 20px; text-decoration: none; text-transform: uppercase; }
+.mark b { color: var(--fac); font-weight: 800; }
+.play { font-family: var(--mono); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; font-size: 14px; padding: 10px 16px; border: 2px solid var(--fac); background: var(--fac); color: #04121a; clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
+.play:hover { background: #fff; border-color: #fff; }
+.tools { display: flex; gap: 8px; align-items: center; }
+.play, .snd, .btn { white-space: nowrap; text-shadow: none; }
+.play .sm { display: none; }
+@media (max-width: 520px) { .play .lg { display: none; } .play .sm { display: inline; } }
+.snd { font-family: var(--mono); font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; font-size: 12px; padding: 10px 10px; color: var(--ink); background: rgba(4, 6, 11, 0.6); border: 1px solid var(--line); cursor: pointer; }
+.snd[aria-pressed="true"] { border-color: var(--fac); color: var(--fac); }
+.scrub { position: fixed; z-index: 5; left: 0; top: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: var(--fac); }
+
+main { position: relative; z-index: 2; overflow-x: clip; }
+h1, h2, h3 { font-family: var(--display); font-weight: 900; text-transform: uppercase; line-height: 0.9; margin: 0; text-wrap: balance; }
+.mono { font-family: var(--mono); font-weight: 600; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; }
+.shadow { text-shadow: 0 2px 18px rgba(0, 0, 0, 0.95), 0 0 4px rgba(0, 0, 0, 0.9); }
+
+/* ---------- act 1: the credits roll ---------- */
+#film { text-align: center; }
+.title { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 0 var(--gutter); }
+.title h1 { font-size: clamp(40px, 13.5vw, 190px); letter-spacing: 0.03em; }
+.title .mono { color: var(--fac); margin-bottom: 14px; }
+.title p { max-width: 34ch; color: var(--ink); margin: 18px auto 0; }
+.btn.big { display: inline-block; margin-top: 26px; font-size: clamp(20px, 5.4vw, 30px); padding: 16px 34px; clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px); }
+.btn.big:hover { background: #fff; border-color: #fff; }
+.cue { margin-top: 26px; color: var(--dim); animation: nudge 1.8s ease-in-out infinite; }
+@keyframes nudge { 50% { transform: translateY(8px); } }
+.roll { padding: 30vh var(--gutter) 0; }
+.roll .lead { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(26px, 6vw, 60px); letter-spacing: 0.08em; margin-bottom: 44vh; }
+.roll .lead small { display: block; font-family: var(--mono); font-weight: 400; font-size: 12px; letter-spacing: 0.2em; color: var(--dim); margin-top: 12px; }
+.fac { margin: 0 auto 52vh; }
+.fac .mono { color: var(--c); display: inline-block; padding-bottom: 8px; margin-bottom: 14px; border-bottom: 1px solid var(--c); }
+.fac ul { list-style: none; margin: 0; padding: 0; }
+.fac li { font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: clamp(30px, 7.4vw, 76px); line-height: 1.02; letter-spacing: 0.03em; }
+.beat { position: relative; }
+.beat .line { position: absolute; left: 0; right: 0; padding: 0 var(--gutter); font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(34px, 9vw, 110px); line-height: 0.92; letter-spacing: 0.03em; }
+.beat .line small { display: block; font-family: var(--mono); font-weight: 400; font-size: 12px; letter-spacing: 0.2em; color: var(--dim); margin-bottom: 12px; }
+#b-chase { height: 320vh; }
+#b-boom { height: 230vh; }
+#b-boom .arrive { position: absolute; left: 0; right: 0; bottom: 9vh; padding: 0 var(--gutter); }
+#b-boom .arrive .mono { color: var(--fac); }
+#b-boom .arrive h2 { font-size: clamp(48px, 13vw, 170px); margin-top: 8px; }
+
+/* ---------- act 2: the station ---------- */
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter); }
+#station { padding: 12vh 0 30vh; }
+#station .intro { max-width: 46ch; margin-bottom: 14vh; }
+#station .intro p { color: var(--ink); }
+.shot { position: relative; margin: 0 0 30vh; }
+.shot .pic { aspect-ratio: 16 / 9; background-size: auto 100%; background-repeat: repeat-x; border: 1px solid var(--line); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7); }
+.shot .cap { display: flex; gap: 14px; align-items: baseline; margin-top: 10px; }
+.shot .cap h3 { font-size: clamp(24px, 4.4vw, 40px); }
+.shot .cap span { color: var(--dim); }
+.face { position: absolute; z-index: 2; bottom: 54px; display: flex; gap: 12px; align-items: center; width: min(340px, 82vw); padding: 10px; background: rgba(8, 13, 22, 0.94); border: 1px solid var(--c, var(--fac)); will-change: transform; }
+.face.l { left: calc(var(--gutter) * -0.5); border-left-width: 4px; }
+.face.r { right: calc(var(--gutter) * -0.5); border-right-width: 4px; flex-direction: row-reverse; text-align: right; }
+.face img { width: 84px; height: 84px; object-fit: cover; flex: none; display: block; }
+.face b { display: block; font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; font-size: 20px; line-height: 1; }
+.face i { display: block; font-style: normal; color: var(--c, var(--fac)); font-family: var(--mono); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; margin: 5px 0 6px; }
+.face q { display: block; font-size: 13.5px; line-height: 1.35; color: var(--ink); quotes: none; }
+
+/* ---------- the spoiler warning and the mech act ---------- */
+.spoiler { margin: 0 0 0; padding: 0; }
+.spoiler .tape { height: 34px; background: repeating-linear-gradient(-45deg, var(--warn) 0 24px, #0b0b0b 24px 48px); }
+.spoiler .box { background: #0b0b0b; text-align: center; padding: 34px var(--gutter) 38px; border-inline: 0; }
+.spoiler .tag { display: inline-block; font-family: var(--mono); font-weight: 700; font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; color: #0b0b0b; background: var(--warn); padding: 4px 12px; }
+.spoiler h2 { font-size: clamp(54px, 15vw, 190px); color: var(--warn); letter-spacing: 0.02em; margin: 14px 0 10px; }
+.spoiler p { margin: 0 auto; max-width: 38ch; color: #f3ecd0; }
+#mechs { position: relative; height: 460vh; text-align: center; }
+#mechs .line { position: absolute; left: 0; right: 0; padding: 0 var(--gutter); font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(40px, 11vw, 140px); line-height: 0.9; letter-spacing: 0.03em; }
+#mechs .line small { display: block; font-family: var(--mono); font-weight: 600; font-size: 13px; letter-spacing: 0.22em; color: var(--warn); margin-bottom: 12px; }
+
+.solo { position: relative; height: 190vh; }
+.solo .who { position: sticky; top: 16vh; padding: 0 var(--gutter); max-width: 1080px; margin: 0 auto; }
+.solo.right .who { text-align: right; }
+.solo .who .mono { color: var(--warn); }
+.solo h2 { font-size: clamp(46px, 12vw, 150px); margin-top: 8px; }
+.solo p { margin: 8px 0 0; color: var(--ink); }
+
+/* ---------- act 3: the planet map comes in ---------- */
+#world { min-height: 150vh; padding: 20vh 0 20vh; }
+#world .col { max-width: 40ch; }
+#world h2 { font-size: clamp(54px, 13vw, 150px); }
+#world .mono { color: var(--fac); }
+.chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 18px 0 0; }
+.chips li { font-family: var(--mono); font-weight: 500; font-size: 13px; padding: 5px 10px; border: 1px solid var(--line); background: rgba(8, 13, 22, 0.8); }
+.chips small { color: var(--dim); margin-left: 6px; }
+#end { padding: 10vh 0 16vh; }
+#end .card { background: rgba(8, 13, 22, 0.92); border: 1px solid var(--line); padding: clamp(18px, 4vw, 36px); max-width: 720px; }
+#end h2 { font-size: clamp(34px, 7vw, 68px); margin-bottom: 14px; }
+#end ul { padding-left: 18px; margin: 10px 0 0; }
+#end li { margin-bottom: 6px; }
+#end .row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.btn { font-family: var(--mono); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; font-size: 20px; padding: 12px 24px; background: var(--fac); color: #04121a; border: 2px solid var(--fac); }
+.btn.ghost { background: transparent; color: var(--ink); }
+
+@media (max-width: 860px) {
+  #world { padding-top: 46vh; }
+  #world .col { max-width: 30ch; }
+  .face { bottom: 46px; }
+}
+@media (prefers-reduced-motion: reduce) { .cue { animation: none; } }
+</style>
+</head>
+<body>
+<div class="stage" aria-hidden="true">
+  <div class="sky" id="sky"></div>
+  <div class="veil"></div>
+  <div class="sun" id="sun"><i></i></div>
+  <canvas id="globe"></canvas>
+  <canvas id="fx"></canvas>
+  <div class="flash" id="flash"></div>
+</div>
+<div class="scrub" id="scrub"></div>
+<header class="bar">
+  <a class="mark" href="#film">Home<b>lancer</b></a>
+  <span class="tools"><button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Music">♪ Off</button><a class="play" href="https://houawanych-pixel.github.io/homelancer-digital/" aria-label="Test the beta"><span class="lg">Test the beta</span><span class="sm">Play</span></a></span>
+</header>
+
+<main>
+  <section id="film">
+    <div class="title shadow">
+      <span class="mono">A space game you fly from your phone</span>
+      <h1>Homelancer</h1>
+      <p>Scroll down and the film runs. Scroll back up and it runs backwards.</p>
+      <a class="btn big" href="https://houawanych-pixel.github.io/homelancer-digital/">Test the beta</a>
+      <span class="mono cue">or scroll and watch ↓</span>
+    </div>
+    <div class="roll shadow" id="roll">
+      <div class="lead">Sixty-seven star systems<small>one map · eleven by eleven</small></div>
+    </div>
+    <div class="beat shadow" id="b-chase">
+      <div class="line" style="top: 60vh"><small>and somewhere in all of it</small>One pilot</div>
+      <div class="line" style="top: 190vh"><small>with a Corsair on the tail</small>Don't look back</div>
+    </div>
+    <div class="beat shadow" id="b-boom">
+      <div class="arrive"><span class="mono">Solara · Unity space · your first dock</span><h2>Liberty Hub</h2></div>
+    </div>
+  </section>
+
+  <section id="station">
+    <div class="wrap">
+      <div class="intro shadow">
+        <p>Unity's trade and patrol station. Every room is a painted picture, and the people who run the place lean in as you pass.</p>
+      </div>
+      <div class="shot" data-shot>
+        <div class="pic" role="img" aria-label="Liberty Hub main hub: a crowded concourse under a holographic globe" style="background-image: url('a/room_main_hub.jpg')"></div>
+        <div class="cap shadow"><h3>Main Hub</h3><span class="mono">Deck H-01</span></div>
+        <div class="face l" style="--c: #59ccff"><img src="a/face_vale.jpg" alt=""><div><b>Cmdr. Vale</b><i>Liberty Hub Control</i><q>Keep your shields up and your credits spent.</q></div></div>
+      </div>
+      <div class="shot" data-shot>
+        <div class="pic" role="img" aria-label="Liberty Hub hangar with your ship on the deck" style="background-image: url('a/room_hangar.jpg')"></div>
+        <div class="cap shadow"><h3>Hangar</h3><span class="mono">Repairs · your ship</span></div>
+        <div class="face r" style="--c: #ffcc66"><img src="a/face_rennick.jpg" alt=""><div><b>Capt. Rennick</b><i>Cargo hauler Bright Margin</i><q>Appreciate the escort. Raiders have been bold lately.</q></div></div>
+      </div>
+      <div class="shot" data-shot>
+        <div class="pic" role="img" aria-label="The Unity Bar on Liberty Hub" style="background-image: url('a/room_bar.jpg')"></div>
+        <div class="cap shadow"><h3>Unity Bar</h3><span class="mono">Rumours · live music</span></div>
+        <div class="face l" style="--c: #ff4d4d"><img src="a/face_voss.jpg" alt=""><div><b>Shade</b><i>Hoard's lieutenant · Raiders</i><q>Every raider in Solara knows your ship now.</q></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="spoiler" id="spoiler">
+    <div class="tape"></div>
+    <div class="box">
+      <span class="tag">Warning</span>
+      <h2>Spoiler alert</h2>
+      <p>Below this line you see what your ship turns into. Scroll on only if you want to know.</p>
+    </div>
+    <div class="tape"></div>
+  </div>
+
+  <section id="mechs">
+    <div class="line shadow" style="top: 70vh"><small>frame 01 · every ship has a second form</small>Mech mode</div>
+    <div class="line shadow" style="top: 215vh"><small>the pilot walks ahead</small>Now look up</div>
+  </section>
+
+  <section class="solo left" id="solo-black"><div class="who shadow"><span class="mono">Frame 02</span><h2>Black Gold</h2><p>Over Venus.</p></div></section>
+  <section class="solo right" id="solo-orange"><div class="who shadow"><span class="mono">Frame 03</span><h2>Orange Cannon</h2><p>Over Io.</p></div></section>
+  <section class="solo left" id="solo-tan"><div class="who shadow"><span class="mono">Frame 04</span><h2>Tan Navy</h2><p>Over Neptune.</p></div></section>
+  <section class="solo right" id="solo-rifle"><div class="who shadow"><span class="mono">Frame 05</span><h2>Rifle</h2><p>Over Ganymede.</p></div></section>
+
+  <section id="world">
+    <div class="wrap">
+      <div class="col shadow">
+        <span class="mono">Planet · below the station</span>
+        <h2>New Terra</h2>
+        <p>Leave the dock and the real map comes into view. A temperate colony world: fly east long enough and you come back where you began.</p>
+        <ul class="chips"><li>Port Meridian<small>capital</small></li><li>Saltmarsh Docks<small>coast</small></li><li>Dust Flats Colony<small>mining</small></li><li>Ridgeback Base<small>garrison</small></li><li>Iron Foundry<small>mission zone</small></li></ul>
+        <div class="shot" data-shot style="margin: 9vh 0 0">
+          <div class="face l" style="--c: #73ff99; position: relative; bottom: auto; left: 0"><img src="a/face_oduya.jpg" alt=""><div><b>Port Master Oduya</b><i>New Terra Port</i><q>Landing beacon's lit whenever you need it.</q></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="end">
+    <div class="wrap">
+      <div class="card">
+        <h2>Your turn</h2>
+        <p>The beta runs in your phone's browser. Nothing to install.</p>
+        <ul>
+          <li>Every ship, station, mech and pilot on this page is the game's own 3D model, running live.</li>
+          <li>Flat pictures stand in for the ships for the first seconds while the models download.</li>
+        </ul>
+        <div class="row"><a class="btn" href="https://houawanych-pixel.github.io/homelancer-digital/">Test the beta</a><a class="btn ghost" href="#film">Run it again</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/utils/SkeletonUtils.js"></script>
+<script>
+(function () {
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---------------------------------------------------------------- the credits (all 67 systems from the game map)
+  var ROLL = [
+    ["Unity", "#39c6dc", ["Solara", "Keldrix", "Aurentum", "Federis", "Veranthos"]],
+    ["Elyza", "#6f8dff", ["Selenvar", "Velanthos", "Crystara", "Zillance Major", "Aurelion"]],
+    ["Solarion", "#f2b441", ["Techanis", "Kellova", "Nexarion", "Synthari Capital", "Crossma Major"]],
+    ["Liberator", "#5fd38a", ["Kiral", "Exodus Point", "Vantara", "Republic Major"]],
+    ["Imperium", "#e0424f", ["Vorreth", "Malachar", "Shadenvex", "Empire Major", "Obsidrath"]],
+    ["Savagers", "#d9772b", ["Plundros", "Raptian Major", "Scavaris", "Derelicta", "Ravage Major"]],
+    ["Orion", "#b9c3d1", ["Dreadholm", "Korrath", "Battlespire", "Ironvast", "Vortegan", "Omicron Major"]],
+    ["Covenant", "#c9a0ff", ["Sepheron", "Valdris", "Sanctum Major"]],
+    ["Free space", "#93a1b8", ["Vega", "Beta-7", "Nebulax", "Farreach Outpost", "Perimeter", "Rimgate", "Vexara", "Nullpoint", "Ogden", "Foggiest", "Shroud", "Sigma-19", "Omega", "Voidtex"]],
+    ["Hostile", "#ff5d5d", ["Void System", "Kronos", "Cynthara", "Cybernet", "Noctyra", "Genesis"]],
+    ["Uncharted", "#7d8aa3", ["Radiant", "Shadow", "The Heart", "Void 1", "Void 2", "Void 3", "Void 4", "Void 5", "Void 6"]]
+  ];
+  var roll = document.getElementById("roll");
+  ROLL.forEach(function (f) {
+    var d = document.createElement("div");
+    d.className = "fac";
+    d.style.setProperty("--c", f[1]);
+    var s = document.createElement("span"); s.className = "mono"; s.textContent = f[0]; d.appendChild(s);
+    var ul = document.createElement("ul");
+    f[2].forEach(function (n) { var li = document.createElement("li"); li.textContent = n; ul.appendChild(li); });
+    d.appendChild(ul);
+    roll.appendChild(d);
+  });
+
+  // ---------------------------------------------------------------- helpers
+  function c01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function seg(a, b, x) { return c01((x - a) / (b - a)); }
+  function ss(a, b, x) { var t = seg(a, b, x); return t * t * (3 - 2 * t); }
+  function bump(x, a, b, c) { return x < b ? ss(a, b, x) : 1 - ss(b, c, x); }   // rise a->b, fall b->c
+  function rnd(i) { var x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+
+  // ---------------------------------------------------------------- sprite sheets (cutouts rendered from the game's models)
+  function sheet(name, cols, fw, fh, n) {
+    var img = new Image();
+    var s = { img: img, cols: cols, fw: fw, fh: fh, n: n, ok: false };
+    img.onload = function () { s.ok = true; };
+    img.src = "a/" + name + ".webp";
+    return s;
+  }
+  var S = {
+    cadet: sheet("cadet", 6, 176, 176, 24),
+    corsair: sheet("corsair", 6, 176, 176, 24),
+    hero: sheet("hero", 8, 320, 320, 32),
+    chaser: sheet("chaser", 6, 256, 256, 24),
+    station: sheet("wheel", 6, 440, 440, 36),
+    carrier: sheet("carrier", 1, 286, 814, 1),
+    tanker: sheet("tanker", 1, 304, 804, 1)
+  };
+  // The same things as live 3D. Each sheet above is the stand-in until its model has loaded; then the model takes over.
+  // kind: top = seen from above, nose up; front = coming at you; turn = turntable; walk = walking at you; len = top view sized by hull length
+  S.cadet.m = { file: "cadet", kind: "top", fit: 1.05 };
+  S.corsair.m = { file: "corsair", kind: "top", fit: 1.05 };
+  S.hero.m = { file: "hero", kind: "front", fit: 1.0 };
+  S.chaser.m = { file: "corsair", kind: "front", fit: 1.0 };
+  S.station.m = { file: "wheel", kind: "turn", fit: 0.98 };
+  // these have no flat stand-in: they appear once their model is in
+  function live(file, kind, n) { return { ok: false, n: n || 16, m: { file: file, kind: kind, tall: true, yaw: 0, tilt: 0.087, gait: file === "pilot" ? "pilot" : "mech" } }; }
+  S.mechBlack = live("mech_black", "walk"); S.mechOrange = live("mech_orange", "walk"); S.mechTeal = live("mech_teal", "walk");
+  S.pilot = live("pilot", "walk"); S.mechTan = live("mech_tan", "walk"); S.mechRifle = live("mech_rifle", "walk");
+  // the frames that walk alone further down, each with its own real world: [section id, sheet, planet, far planet, which side the planet sits]
+  var SOLO = [
+    { id: "solo-black", sheet: "mechBlack", world: "venus", far: "io", side: 1 },
+    { id: "solo-orange", sheet: "mechOrange", world: "io", far: "jupiter", side: -1 },
+    { id: "solo-tan", sheet: "mechTan", world: "neptune", far: "europa", side: 1 },
+    { id: "solo-rifle", sheet: "mechRifle", world: "ganymede", far: "mars", side: -1 }
+  ];
+  S.crates = [live("crate_a", "tumble", 1), live("crate_b", "tumble", 1), live("crate_c", "tumble", 1)];
+  S.parts = [live("part_0", "tumble", 1), live("part_1", "tumble", 1), live("part_2", "tumble", 1), live("part_3", "tumble", 1)];
+  S.carrier.m = { file: "carrier", kind: "len" };
+  S.tanker.m = { file: "tanker", kind: "len" };
+  var actors = null;
+
+  var fx = document.getElementById("fx");
+  var g = fx.getContext("2d");
+  var W = 1, H = 1, M = 1, dpr = 1;
+  function sizeFx() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight; M = Math.min(W, H);
+    fx.width = Math.round(W * dpr); fx.height = Math.round(H * dpr);
+  }
+  // draw one frame of a sheet: centre x,y; h = drawn height in px; rot in radians; flip mirrors left/right
+  function put(s, i, x, y, h, rot, alpha, flip) {
+    if (alpha <= 0.003) return;
+    if (actors && s.m && actors.place(s, i, x, y, h, rot || 0, alpha)) return;
+    if (!s.ok) return;
+    i = ((Math.floor(i) % s.n) + s.n) % s.n;
+    var w = h * s.fw / s.fh;
+    g.save();
+    g.globalAlpha = alpha > 1 ? 1 : alpha;
+    g.translate(x, y);
+    if (rot) g.rotate(rot);
+    if (flip) g.scale(-1, 1);
+    g.drawImage(s.img, (i % s.cols) * s.fw, Math.floor(i / s.cols) * s.fh, s.fw, s.fh, -w / 2, -h / 2, w, h);
+    g.restore();
+  }
+  function glow(x, y, r, col, a) {
+    if (a <= 0.003 || r <= 0.5) return;
+    var gr = g.createRadialGradient(x, y, 0, x, y, r);
+    gr.addColorStop(0, col); gr.addColorStop(1, "rgba(0,0,0,0)");
+    g.save(); g.globalCompositeOperation = "lighter"; g.globalAlpha = a > 1 ? 1 : a;
+    g.fillStyle = gr; g.beginPath(); g.arc(x, y, r, 0, 6.2832); g.fill(); g.restore();
+  }
+  function streak(x0, y0, x1, y1, w, col, a) {
+    if (a <= 0.003) return;
+    var gr = g.createLinearGradient(x0, y0, x1, y1);
+    gr.addColorStop(0, col); gr.addColorStop(1, "rgba(0,0,0,0)");
+    g.save(); g.globalCompositeOperation = "lighter"; g.globalAlpha = a > 1 ? 1 : a;
+    g.strokeStyle = gr; g.lineWidth = w; g.lineCap = "round";
+    g.beginPath(); g.moveTo(x0, y0); g.lineTo(x1, y1); g.stroke(); g.restore();
+  }
+  // a top-down fighter crossing from A to B over t 0..1, nose first, with an engine trail; rolls = barrel rolls on the way
+  function flyer(s, t, ax, ay, bx, by, h, rolls, col) {
+    if (t <= 0 || t >= 1) return;
+    var x = lerp(ax, bx, t), y = lerp(ay, by, t);
+    var dx = bx - ax, dy = by - ay, d = Math.sqrt(dx * dx + dy * dy) || 1;
+    var ux = dx / d, uy = dy / d;
+    streak(x - ux * h * 0.3, y - uy * h * 0.3, x - ux * h * 2.6, y - uy * h * 2.6, h * 0.09, col, 0.85);
+    put(s, rolls * t * s.n, x, y, h, Math.atan2(dx, -dy), 1, false);
+  }
+
+  // ---------------------------------------------------------------- the planet (real map, WebGL)
+  var globe = null;
+  function makeGlobe() {
+    if (!window.THREE) return null;
+    var canvas = document.getElementById("globe");
+    var renderer;
+    try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, powerPreference: "low-power" }); }
+    catch (e) { return null; }
+    renderer.setClearColor(0x000000, 0);
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(32, 1, 0.1, 80);
+    camera.position.set(0, 0, 6);
+    var loader = new THREE.TextureLoader();
+    function tex(name) {
+      var t = loader.load("a/" + name + ".jpg");
+      t.wrapS = THREE.RepeatWrapping; t.minFilter = THREE.LinearMipmapLinearFilter; t.anisotropy = 4;
+      return t;
     }
-  },
-  "factions": {
-    "Unity": {
-      "primary": "#e8fbff",
-      "secondary": "#00bcd4",
-      "tint": "#00bcd4",
-      "theme": "Law · Order · Diplomacy",
-      "bibleColors": "White + Cyan",
-      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
-      "themeSource": "Catalog v2 (Bible §4)"
-    },
-    "Orion": {
-      "primary": "#0f8a4f",
-      "secondary": "#f0f4f0",
-      "tint": "#0f8a4f",
-      "theme": "War · Conquest",
-      "bibleColors": "Emerald Green + Silver-White",
-      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
-      "themeSource": "Catalog v2 (Bible §4)"
-    },
-    "Imperium": {
-      "primary": "#b0122b",
-      "secondary": "#5a5f66",
-      "tint": "#b0122b",
-      "theme": "Control · Authority",
-      "bibleColors": "Crimson Red + Gunmetal",
-      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
-      "themeSource": "Catalog v2 (Bible §4)"
-    },
-    "Savagers": {
-      "primary": "#cc5500",
-      "secondary": "#333333",
-      "tint": "#cc5500",
-      "theme": "Chaos · Salvage",
-      "bibleColors": "Burnt Orange + Charcoal",
-      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
-      "themeSource": "Catalog v2 (Bible §4)"
-    },
-    "Gadversee": {
-      "primary": "#2e3034",
-      "secondary": "#C8E000",
-      "tint": "#C8E000",
-      "enemy": true,
-      "bibleColors": "Black + Toxic Green",
-      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
-      "threat": "Legendary",
-      "themeSource": "Catalog v2 §5 (Bible): threat label"
-    },
-    "Kaijurai": {
-      "primary": "#2e3034",
-      "secondary": "#FFD000",
-      "tint": "#FFD000",
-      "enemy": true,
-      "bibleColors": "Black + Radioactive Yellow",
-      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
-      "threat": "Celestial",
-      "themeSource": "Catalog v2 §5 (Bible): threat label"
+    var texCache = {};
+    function map(name) { if (!texCache[name]) texCache[name] = tex(name); return texCache[name]; }
+    var vert = "varying vec2 vUv; varying vec3 vN; void main(){ vUv = uv; vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }";
+    var frag = [
+      "precision highp float;",
+      "uniform sampler2D day, lit, clouds; uniform vec3 air, sun; uniform float time, alpha, litAmt, cloudAmt;",
+      "varying vec2 vUv; varying vec3 vN;",
+      "void main(){",
+      "  vec3 n = normalize(vN);",
+      "  float ndl = dot(n, sun);",
+      "  float dayk = smoothstep(-0.14, 0.3, ndl);",
+      "  float c = texture2D(clouds, vUv + vec2(time * 0.0035, 0.0)).r * cloudAmt;",
+      "  float cs = texture2D(clouds, vUv + vec2(time * 0.0035 + 0.006, 0.004)).r * cloudAmt;",
+      "  vec3 col = texture2D(day, vUv).rgb * (0.035 + 1.05 * dayk) * (1.0 - cs * 0.35);",
+      "  col = mix(col, vec3(1.0) * (0.04 + dayk), clamp(c * 0.9, 0.0, 1.0));",
+      "  float tw = 0.82 + 0.18 * sin(time * 2.6 + vUv.x * 610.0 + vUv.y * 370.0);",
+      "  col += texture2D(lit, vUv).rgb * tw * litAmt * (1.0 - dayk) * (1.0 - c * 0.75);",
+      "  float fres = pow(1.0 - max(n.z, 0.0), 3.2);",
+      "  col += air * fres * (0.18 + 1.25 * dayk);",
+      "  col += vec3(1.0, 0.55, 0.3) * fres * smoothstep(0.0, 0.14, ndl) * smoothstep(0.34, 0.1, ndl) * 0.45;",
+      "  gl_FragColor = vec4(col, alpha);",
+      "}"
+    ].join("\n");
+    var haloFrag = [
+      "precision highp float; uniform vec3 air, sun; uniform float alpha; varying vec3 vN;",
+      "void main(){ vec3 n = normalize(vN); float rim = pow(clamp(0.82 + n.z, 0.0, 1.0), 5.0);",
+      "  float side = 0.25 + 0.9 * smoothstep(-0.5, 0.6, dot(-n, sun));",
+      "  gl_FragColor = vec4(air * rim * side * 1.5 * alpha, rim * side * alpha); }"
+    ].join("\n");
+    // the real worlds this page uses: map, air colour, city lights, clouds
+    var WORLDS = {
+      mars: ["mars", [1.0, 0.55, 0.36], 0, 0.12], jupiter: ["jupiter", [1.0, 0.8, 0.6], 0, 0], europa: ["europa", [0.6, 0.8, 1.0], 0, 0],
+      venus: ["venus", [1.0, 0.78, 0.4], 0, 0.5], io: ["io", [1.0, 0.9, 0.45], 0, 0], neptune: ["neptune", [0.35, 0.55, 1.0], 0, 0.2], ganymede: ["ganymede", [0.7, 0.75, 0.85], 0, 0],
+      earth: ["earth", [0.36, 0.62, 1.0], 1, 0.85]
+    };
+    var halfH = 6 * Math.tan(16 * Math.PI / 180), halfW = halfH, now = 0;
+    function body(spin) {
+      var uni = { day: { value: map("mars") }, lit: { value: map("lights_earth") }, clouds: { value: map("clouds") },
+        air: { value: new THREE.Vector3(1, 1, 1) }, time: { value: 0 }, alpha: { value: 1 }, litAmt: { value: 0 }, cloudAmt: { value: 0 },
+        sun: { value: new THREE.Vector3(-0.62, 0.55, 0.56).normalize() } };
+      var planet = new THREE.Mesh(new THREE.SphereGeometry(1, 96, 64), new THREE.ShaderMaterial({ uniforms: uni, vertexShader: vert, fragmentShader: frag, transparent: true }));
+      planet.rotation.z = 0.32;
+      var halo = new THREE.Mesh(new THREE.SphereGeometry(1.085, 64, 48), new THREE.ShaderMaterial({ uniforms: uni, vertexShader: vert, fragmentShader: haloFrag, side: THREE.BackSide, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false }));
+      scene.add(planet); scene.add(halo);
+      var world = "";
+      // x, y: centre as a fraction of the half screen (-1..1, y up); r: radius as a fraction of the shorter half side;
+      // sx, sz: where the sun is (x sign = which shoulder it sits behind)
+      return function (name, x, y, r, alpha, sx, sz, dt) {
+        var vis = alpha > 0.01 && r > 0.01;
+        planet.visible = halo.visible = vis;
+        if (!reduce) planet.rotation.y += dt * spin;
+        if (!vis) return;
+        if (name !== world) { world = name; var wd = WORLDS[name]; uni.day.value = map(wd[0]); uni.air.value.fromArray(wd[1]); uni.litAmt.value = wd[2]; uni.cloudAmt.value = wd[3]; }
+        uni.time.value = now; uni.alpha.value = alpha; uni.sun.value.set(sx, 0.5, sz).normalize();
+        var m = Math.min(halfW, halfH);
+        planet.position.set(x * halfW, y * halfH, 0); planet.scale.setScalar(r * m);
+        halo.position.copy(planet.position); halo.scale.setScalar(r * m);
+      };
     }
-  },
-  "systems": [
-    {
-      "id": "veranthos",
-      "name": "Veranthos",
-      "tile": "C5",
-      "faction": "Unity",
-      "role": "capital · FIRST BUILD",
-      "planets": 5,
-      "stations": 4,
-      "mech": "owner_white_teal",
-      "tintStrength": 0.0,
-      "catalog": [
-        {
-          "kind": "mech",
-          "mech": "owner_white_teal",
-          "title": "White/Teal Mech — Unity",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "ship",
-          "title": "Ship item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "gear",
-          "title": "Gear item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "cosmetic",
-          "title": "Cosmetic item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        }
-      ]
-    },
-    {
-      "id": "dreadholm",
-      "name": "Dreadholm",
-      "tile": "F4",
-      "faction": "Orion",
-      "role": "capital",
-      "planets": 5,
-      "stations": 4,
-      "mech": "owner_white_darkteal",
-      "tintStrength": 0.35,
-      "catalog": [
-        {
-          "kind": "mech",
-          "mech": "owner_white_darkteal",
-          "title": "White/Dark-Teal Heavy Mech — Orion livery",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "weapon",
-          "title": "Weapon item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "ship",
-          "title": "Ship item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "gear",
-          "title": "Gear item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        }
-      ]
-    },
-    {
-      "id": "malachar",
-      "name": "Malachar",
-      "tile": "E6",
-      "faction": "Imperium",
-      "role": "capital",
-      "planets": 5,
-      "stations": 3,
-      "mech": "owner_red_winged",
-      "tintStrength": 0.0,
-      "catalog": [
-        {
-          "kind": "mech",
-          "mech": "owner_red_winged",
-          "title": "Red Winged Mech — Imperium",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "gear",
-          "title": "Gear item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "weapon",
-          "title": "Weapon item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "cosmetic",
-          "title": "Cosmetic item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        }
-      ]
-    },
-    {
-      "id": "raptian-major",
-      "name": "Raptian Major",
-      "tile": "E3",
-      "faction": "Savagers",
-      "role": "capital",
-      "planets": 4,
-      "stations": 3,
-      "mech": "tan_navy_mecha",
-      "tintStrength": 0.7,
-      "catalog": [
-        {
-          "kind": "mech",
-          "mech": "tan_navy_mecha",
-          "title": "Tan/Navy Mecha — Savagers livery",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "salvage",
-          "title": "Salvage item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "weapon",
-          "title": "Weapon item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "gear",
-          "title": "Gear item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        }
-      ]
-    },
-    {
-      "id": "cynthara",
-      "name": "Cynthara",
-      "tile": "A1",
-      "faction": "Gadversee",
-      "role": "enemy home",
-      "planets": 3,
-      "stations": 1,
-      "mech": "boss_mech",
-      "tintStrength": 0.7,
-      "catalog": [
-        {
-          "kind": "mech",
-          "mech": "boss_mech",
-          "title": "Boss Mech — Gadversee livery",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "weapon",
-          "title": "Weapon item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "gear",
-          "title": "Gear item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "cosmetic",
-          "title": "Cosmetic item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        }
-      ]
-    },
-    {
-      "id": "genesis",
-      "name": "Genesis",
-      "tile": "H6",
-      "faction": "Kaijurai",
-      "role": "enemy home",
-      "planets": 3,
-      "stations": 1,
-      "mech": "black_gold_mecha",
-      "tintStrength": 0.7,
-      "catalog": [
-        {
-          "kind": "mech",
-          "mech": "black_gold_mecha",
-          "title": "Black/Gold Mecha — Kaijurai livery",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "gear",
-          "title": "Gear item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "weapon",
-          "title": "Weapon item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        },
-        {
-          "kind": "ship",
-          "title": "Ship item",
-          "price": "PLACEHOLDER",
-          "placeholder": true
-        }
-      ]
+    var far = body(0.02), near = body(0.045);   // the far one is added first so the near one draws over it
+    function size() {
+      var w = window.innerWidth, h = window.innerHeight;
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+      renderer.setSize(w, h, false);
+      camera.aspect = w / h; camera.updateProjectionMatrix();
+      halfW = halfH * camera.aspect;
     }
-  ]
-}</script>
-</body></html>
+    function frame(t) { now = t; }
+    renderer.autoClear = false;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    function render(extra) {
+      renderer.clear();
+      renderer.render(scene, camera);
+      if (extra) { renderer.clearDepth(); renderer.render(extra.scene, extra.camera); }
+    }
+    size();
+    window.addEventListener("resize", size);
+    return { frame: frame, render: render, near: near, far: far };
+  }
+  try { globe = makeGlobe(); } catch (e) { globe = null; }
+
+  // ---------------------------------------------------------------- live 3D actors, drawn by the same renderer over the planet
+  function makeActors() {
+    if (!window.THREE || !THREE.GLTFLoader || !globe) return null;
+    var scene = new THREE.Scene();
+    var camera = new THREE.OrthographicCamera(0, 1, 0, -1, 1, 400000);
+    camera.position.z = 200000;
+    scene.add(new THREE.AmbientLight(0x9fb4e0, 0.55));
+    var key = new THREE.DirectionalLight(0xfff4e2, 1.35); key.position.set(-0.55, 0.8, 0.75); scene.add(key);
+    var rim = new THREE.DirectionalLight(0x7fbfff, 0.9); rim.position.set(0.7, -0.2, -0.5); scene.add(rim);
+    var fill = new THREE.DirectionalLight(0xffffff, 0.3); fill.position.set(0.2, -0.3, 1); scene.add(fill);
+    var loader = new THREE.GLTFLoader();
+    var models = {};     // file -> { root, r, centre, size, clips, pool: [], used }
+    var order = 0;
+    var RX90 = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI / 2);
+    var qa = new THREE.Quaternion(), qb = new THREE.Quaternion(), eu = new THREE.Euler();
+    var X = new THREE.Vector3(1, 0, 0), Y = new THREE.Vector3(0, 1, 0), Z = new THREE.Vector3(0, 0, 1);
+    function load(file) {
+      if (models[file]) return;
+      models[file] = { ready: false, pool: [], used: 0 };
+      loader.load("m/" + file + ".json", function (gltf) {
+        var root = gltf.scene, skinned = false;
+        root.traverse(function (o) {
+          if (o.isSkinnedMesh) { skinned = true; o.frustumCulled = false; }
+          if (o.isMesh && o.material) { o.material.metalness = Math.min(o.material.metalness, 0.25); o.material.roughness = Math.max(o.material.roughness, 0.45); }
+        });
+        root.updateMatrixWorld(true);
+        var box = new THREE.Box3().setFromObject(root);
+        var m = models[file];
+        m.root = root; m.skinned = skinned; m.clips = gltf.animations || [];
+        m.size = box.getSize(new THREE.Vector3()); m.centre = box.getCenter(new THREE.Vector3());
+        m.r = m.size.length() * 0.5 || 1;
+        m.ready = true;
+      });
+    }
+    function inst(m) {
+      if (m.used < m.pool.length) return m.pool[m.used++];
+      if (m.skinned && m.pool.length && !(THREE.SkeletonUtils && THREE.SkeletonUtils.clone)) return null;
+      var body = !m.pool.length ? m.root : (m.skinned ? THREE.SkeletonUtils.clone(m.root) : m.root.clone(true));
+      if (m.skinned) body.traverse(function (o) { if (o.isSkinnedMesh) o.frustumCulled = false; });
+      var mats = [];
+      body.traverse(function (o) { if (o.isMesh) { if (m.pool.length) o.material = o.material.clone(); mats.push(o.material); } });
+      body.position.copy(m.centre).multiplyScalar(-1);
+      var roll = new THREE.Group(); roll.add(body);
+      var g3 = new THREE.Group(); g3.add(roll);
+      scene.add(g3);
+      var it = { g: g3, roll: roll, mats: mats, alpha: 1, mixer: null, dur: 1 };
+      if (m.skinned && m.clips.length) {
+        var clip = m.clips[0];
+        for (var c = 0; c < m.clips.length; c++) if (m.clips[c].name === "Walk") clip = m.clips[c];
+        // remember every bone's rest pose before the clip touches it: the walk is rebuilt from the clip's motion
+        // (see stride) with a longer step, deeper knees, a real arm swing, a twisting torso and a weighty bob
+        it.bones = [];
+        body.traverse(function (o) { if (o.isBone) it.bones.push({ b: o, name: o.name, rest: o.quaternion.clone(), restInv: o.quaternion.clone().invert(), y: o.position.y }); });
+        it.mixer = new THREE.AnimationMixer(body); it.mixer.clipAction(clip).play(); it.dur = clip.duration || 1;
+        it.mixer.setTime(0);
+        var lowY = Infinity;
+        for (var sk = 0; sk < 24; sk++) { it.mixer.setTime(it.dur * sk / 24); for (var hb = 0; hb < it.bones.length; hb++) if (it.bones[hb].name === "Hips") lowY = Math.min(lowY, it.bones[hb].b.position.y); }
+        it.lowY = lowY;
+      }
+      m.pool.push(it); m.used++;
+      return it;
+    }
+    // how much each part of the stock walk is pushed, for a heavy machine and for a person
+    var GAIT = {
+      mech: { UpperLeg: 1.45, LowerLeg: 1.35, Foot: 1.3, UpperArm: 1.5, LowerArm: 1.0, Spine: 2.4, Chest: 2.4, bob: 3.6 },
+      pilot: { UpperLeg: 1.25, LowerLeg: 1.2, Foot: 1.2, UpperArm: 2.3, LowerArm: 1.4, Spine: 2.2, Chest: 2.2, bob: 2.0 }
+    };
+    var qd = new THREE.Quaternion(), ax = new THREE.Vector3();
+    function stride(it, gait) {
+      var G = GAIT[gait] || GAIT.mech;
+      for (var k = 0; k < it.bones.length; k++) {
+        var bn = it.bones[k], key = bn.name.replace("Left", "").replace("Right", "");
+        if (key === "Hips") { bn.b.position.y = it.lowY + (bn.b.position.y - it.lowY) * G.bob; continue; }
+        var gn = G[key];
+        if (!gn || gn === 1) continue;
+        qd.copy(bn.restInv).multiply(bn.b.quaternion);          // what the clip added to the rest pose
+        if (qd.w < 0) { qd.x = -qd.x; qd.y = -qd.y; qd.z = -qd.z; qd.w = -qd.w; }
+        var ang = 2 * Math.acos(Math.min(1, qd.w)), sn = Math.sqrt(Math.max(0, 1 - qd.w * qd.w));
+        if (sn < 0.0005) continue;
+        ax.set(qd.x / sn, qd.y / sn, qd.z / sn);
+        bn.b.quaternion.copy(bn.rest).multiply(qd.setFromAxisAngle(ax, ang * gn));
+      }
+    }
+    function place(s, i, x, y, h, rot, alpha) {
+      var d = s.m, m = models[d.file];
+      if (!m) { load(d.file); return false; }
+      if (!m.ready) return false;
+      var it = inst(m);
+      if (!it) return false;
+      var t = i / s.n, sc;
+      if (d.kind === "len") { sc = h / m.size.z; it.roll.quaternion.identity(); it.g.quaternion.setFromAxisAngle(Z, -rot).multiply(RX90); }
+      else {
+        sc = d.tall ? h / (d.kind === "tumble" ? 2 * m.r : m.size.y) : h / (2 * d.fit) / m.r;
+        if (d.kind === "tumble") { it.roll.quaternion.identity(); it.g.quaternion.setFromEuler(eu.set(i, i * 0.71 + rot, i * 1.31)); }
+        else if (d.kind === "top") { it.roll.quaternion.setFromAxisAngle(Z, t * 6.2832); it.g.quaternion.setFromAxisAngle(Z, -rot).multiply(RX90); }
+        else if (d.kind === "front") { it.roll.quaternion.setFromAxisAngle(Z, t * 6.2832); it.g.quaternion.setFromAxisAngle(X, 0.384).multiply(qa.setFromAxisAngle(Y, Math.PI)); }
+        else if (d.kind === "turn") { it.roll.quaternion.setFromAxisAngle(Y, t * 6.2832); it.g.quaternion.setFromAxisAngle(X, 0.42); }
+        else { it.roll.quaternion.setFromAxisAngle(Y, d.yaw * 0.01745); it.g.quaternion.setFromAxisAngle(X, d.tilt != null ? d.tilt : 0.087); if (it.mixer) it.mixer.setTime((((t % 1) + 1) % 1) * it.dur); }
+      }
+      it.g.visible = true;
+      it.g.position.set(x, -y, order++ * 6000 - 150000);
+      it.g.scale.setScalar(sc);
+      var a = alpha > 0.985 ? 1 : alpha;
+      if (a !== it.alpha) { it.alpha = a; for (var k = 0; k < it.mats.length; k++) { it.mats[k].transparent = a < 1; it.mats[k].opacity = a; it.mats[k].depthWrite = true; } }
+      return true;
+    }
+    function begin() {
+      order = 0;
+      for (var f in models) { var m = models[f]; for (var k = 0; k < m.pool.length; k++) m.pool[k].g.visible = false; m.used = 0; }
+      camera.right = W; camera.bottom = -H; camera.updateProjectionMatrix();
+    }
+    // fetch in the order things appear
+    ["cadet", "crate_a", "crate_b", "crate_c", "tanker", "carrier", "corsair", "part_0", "part_1", "part_2", "part_3", "hero", "wheel"].forEach(function (f, n) { setTimeout(function () { load(f); }, 200 + n * 300); });
+    return { place: place, begin: begin, load: load, scene: scene, camera: camera };
+  }
+  try { actors = makeActors(); } catch (e) { actors = null; }
+
+  // ---------------------------------------------------------------- where each act starts, as a fraction of the film
+  var film = document.getElementById("film");
+  var bChase = document.getElementById("b-chase"), bBoom = document.getElementById("b-boom");
+  SOLO.forEach(function (o) { o.el = document.getElementById(o.id); });
+  var stationSec = document.getElementById("station"), worldSec = document.getElementById("world"), mechSec = document.getElementById("mechs");
+  var shots = Array.prototype.slice.call(document.querySelectorAll("[data-shot]"));
+  var sky = document.getElementById("sky"), flash = document.getElementById("flash"), scrub = document.getElementById("scrub");
+  var filmLen = 1, pRoll = 0, pChase = 0.6, pBoom = 0.85, docLen = 1;
+  function measure() {
+    sizeFx();
+    filmLen = Math.max(1, film.offsetHeight - H);
+    pRoll = (roll.offsetTop - H * 0.6) / filmLen;
+    pChase = (bChase.offsetTop - H * 0.35) / filmLen;
+    pBoom = bBoom.offsetTop / filmLen;
+    docLen = Math.max(1, document.documentElement.scrollHeight - H);
+  }
+
+  // ---------------------------------------------------------------- the film: everything below is a function of scroll
+  var lastBlur = -1, lastFlash = -1, globeEl = document.getElementById("globe");
+  var sunEl = document.getElementById("sun"), sunX = 0, sunY = 0, sunR = 1, sunA = 0;
+  if (!globe) sunEl.style.display = "none";
+  function draw(time, dt) {
+    var sy = window.pageYOffset || 0;
+    var p = c01(sy / filmLen);                 // whole film
+    var u = seg(pRoll, pChase, p);             // act 1: battle behind the credits
+    var v = seg(pChase, pBoom, p);             // the chase
+    var w = seg(pBoom, 1, p);                  // explosion, blur, arrive at the station
+    var after = Math.max(0, sy - filmLen);     // pixels scrolled past the film
+    var sIn = c01(after / (H * 0.9));          // settling into the station pictures
+    var wr = worldSec.getBoundingClientRect();
+    var gIn = ss(0, 1, (H * 1.05 - wr.top) / (H * 0.9));   // the planet map coming in
+
+    var mr = mechSec.getBoundingClientRect();
+    var act2 = c01((H * 0.7 - mr.top) / Math.max(1, mr.height - H * 0.3));   // the mech act, 0..1
+    var a2In = ss(0.0, 0.07, act2) * (1 - ss(0.93, 1.0, act2));
+    // which solo frame is on screen, how present it is, and how far through its stretch you are
+    var soloBest = -1, soloA = 0, soloP = 0, asp0 = W / H;
+    for (var si = 0; si < SOLO.length; si++) {
+      var srr = SOLO[si].el.getBoundingClientRect();
+      if (srr.top < H * 2.5 && srr.bottom > -H && actors) actors.load(S[SOLO[si].sheet].m.file);   // fetch a frame's model as you come up on it
+      var spp = (H * 0.85 - srr.top) / (srr.height + H * 0.35);
+      var saa = ss(0.0, 0.16, spp) * (1 - ss(0.84, 1.0, spp));
+      if (saa > soloA) { soloA = saa; soloBest = si; soloP = c01(spp); }
+    }
+    if (actors && mr.top < H * 3) { actors.load("pilot"); actors.load("mech_teal"); }
+    if (actors) actors.begin();
+    if (globe) globe.frame(time);
+    scrub.style.transform = "scaleX(" + c01(sy / docLen).toFixed(4) + ")";
+    sky.style.transform = "translate3d(0," + (-(sy * 0.012) % (H * 0.06)).toFixed(1) + "px,0) scale(" + (1 + 0.25 * v).toFixed(3) + ")";
+
+    // ----- planets: each scene has its own real world, sitting to one side and just turning (no zoom).
+    // Act one: Mars on the right with Jupiter far off. Mech act: Jupiter on the left with Europa. The end: Earth (New Terra).
+    if (globe) {
+      var asp = W / H;
+      var hr = asp < 1 ? 1.75 : 1.3;                               // radius in short half sides: half the planet shows
+      var hx = asp < 1 ? hr - 0.02 : 0.06 + hr / asp, hyy = asp < 1 ? 0.12 : 0.0;
+      var name = "mars", side = 1, ga = (1 - ss(0.0, 0.08, v)), gy = hyy, farName = "jupiter", fa = ga, fx0 = -0.55, fy0 = 0.58, fr = asp < 1 ? 0.2 : 0.16, sunZ = -0.22;
+      if (gIn > 0) { name = "earth"; ga = gIn; fa = 0; gy = asp < 1 ? 0.3 : 0.0; sunZ = lerp(-0.22, 0.2, gIn); }
+      else if (act2 > 0 && a2In > 0) { name = "jupiter"; side = -1; ga = a2In * 0.92; gy = asp < 1 ? 0.34 : 0.1; farName = "europa"; fa = a2In; fx0 = 0.6; fy0 = 0.62; fr = asp < 1 ? 0.17 : 0.13; }
+      else if (soloBest >= 0 && soloA > 0) { var sd0 = SOLO[soloBest]; name = sd0.world; side = sd0.side; ga = soloA; gy = asp < 1 ? 0.3 : 0.05; farName = sd0.far; fa = soloA; fx0 = -0.6 * sd0.side; fy0 = 0.6; fr = asp < 1 ? 0.16 : 0.12; }
+      else if (sIn > 0 && after > 0) { ga = 0; fa = 0; }
+      globe.far(farName, fx0, fy0, fr, fa, -0.72 * side, 0.3, dt);
+      globe.near(name, hx * side, gy, hr, ga, -0.72 * side, sunZ, dt);
+      // where the near planet is in pixels, so the sun can peek from behind its shoulder
+      var ppx = (hx * side * 0.5 + 0.5) * W, ppy = (-gy * 0.5 + 0.5) * H, prr = hr * M * 0.5 * 1.04;
+      var peek = 1.03 + (reduce ? 0 : 0.008 * Math.sin(time * 0.7));
+      sunX = ppx - side * prr * 0.80 * peek; sunY = ppy - prr * 0.60 * peek;
+      sunR = Math.max(0.35, prr / 420);
+      sunA = ga;
+      sunEl.style.transform = "translate3d(" + sunX.toFixed(1) + "px," + sunY.toFixed(1) + "px,0) scale(" + sunR.toFixed(3) + ")";
+      sunEl.style.opacity = c01(ga).toFixed(3);
+    }
+
+    g.setTransform(dpr, 0, 0, dpr, 0, 0);
+    g.clearRect(0, 0, W, H);
+
+    // walk cycles (16 = one full stride), driven by the scroll alone: scroll and they step, scroll back and they back up
+    var walkM = sy / 58, walkP = sy / 22;
+
+    // ----- act 1
+    if (v < 0.05) {
+      var fh = M * 0.17;
+      // loose cargo drifting through the scene from the first frame: crates turning slowly, at their own depths
+      for (var cg = 0; cg < 9; cg++) {
+        var depthK = 0.45 + 0.75 * rnd(cg + 5);
+        var cgx = ((rnd(cg) * 1.3 - 0.15 + (p * 1.4 + (reduce ? 0 : time * 0.004)) * depthK * (cg % 2 ? 1 : -0.6)) % 1.3 + 1.3) % 1.3 - 0.15;
+        var cgy = ((rnd(cg + 20) * 1.2 - p * 2.2 * depthK) % 1.2 + 1.2) % 1.2 - 0.1;
+        put(S.crates[cg % 3], rnd(cg + 3) * 6 + (reduce ? 0 : time * 0.12) + p * 9 * depthK, W * cgx, H * cgy, fh * (0.22 + 0.4 * depthK), cg, 1, false);
+      }
+      // the far battleship, smaller and slower, then the near one, both climbing up and to the right
+      var tf = seg(0.14, 1.0, u), tn = seg(0.2, 0.96, u);
+      var fxp = lerp(W * 0.52, W * 1.0, tf), fyp = lerp(H * 1.22, H * -0.25, tf);
+      var nx = lerp(W * 0.02, W * 0.8, tn), ny = lerp(H * 1.38, H * -0.42, tn);
+      var headF = Math.atan2(W * 0.48, H * 1.47), headN = Math.atan2(W * 0.78, H * 1.8);
+      var lenF = H * 0.3, lenN = Math.min(H * 0.72, W * 1.25);
+      if (tf > 0 && tf < 1) {
+        glow(fxp - Math.sin(headF) * lenF * 0.5, fyp + Math.cos(headF) * lenF * 0.5, lenF * 0.16, "rgba(120,200,255,0.9)", 0.8);
+        put(S.carrier, 0, fxp, fyp, lenF, headF, 0.9, false);
+      }
+      // six in formation rip across in front of the far ship and behind the near one
+      var t6 = seg(0.4, 0.47, u);
+      if (t6 > 0 && t6 < 1) {
+        for (var k = 0; k < 6; k++) {
+          var row = Math.ceil(k / 2), side = k === 0 ? 0 : (k % 2 ? -1 : 1);
+          var ox = row * fh * 0.9 + side * row * fh * 0.25, oy = side * row * fh * 0.62 - row * fh * 0.3;
+          flyer(S.corsair, c01(t6 * 1.0), W * 1.25 + ox, H * 0.12 + oy, W * -0.35 + ox, H * 0.7 + oy, fh * 0.9, 0, "rgba(255,90,70,0.9)");
+        }
+      }
+      var HIT = 0.66;
+      if (tn > 0 && tn < 1 && u < HIT) {   // the big tanker: a cargo ship, no shield
+        glow(nx - Math.sin(headN) * lenN * 0.5, ny + Math.cos(headN) * lenN * 0.5, lenN * 0.15, "rgba(120,200,255,0.9)", 0.85);
+        put(S.tanker, 0, nx, ny, lenN, headN, 1, false);
+      }
+      // boom, boom, boom: three fighters left to right
+      for (var i = 0; i < 3; i++) flyer(S.cadet, seg(0.04 + i * 0.016, 0.085 + i * 0.016, u), -W * 0.25, H * (0.34 + 0.13 * i), W * 1.25, H * (0.22 + 0.16 * i), fh, i === 1 ? 1 : 0, "rgba(110,220,255,0.9)");
+      // two more the other way
+      for (i = 0; i < 2; i++) flyer(S.cadet, seg(0.29 + i * 0.02, 0.335 + i * 0.02, u), W * 1.25, H * (0.62 + 0.1 * i), -W * 0.25, H * (0.4 + 0.12 * i), fh * 1.15, 0, "rgba(110,220,255,0.9)");
+      // late streaks as the fleet leaves
+      for (i = 0; i < 3; i++) flyer(S.cadet, seg(0.85 + i * 0.02, 0.9 + i * 0.02, u), W * (0.1 + 0.3 * i), H * 1.2, W * (0.5 + 0.3 * i), -H * 0.2, fh * 0.9, i === 0 ? 1 : 0, "rgba(110,220,255,0.9)");
+
+      // the one that barrel-rolls in, grows, and hits the tanker
+      var th = seg(0.2, 0.96, HIT);
+      var kx = lerp(W * 0.02, W * 0.8, th), ky = lerp(H * 1.38, H * -0.42, th);   // where the tanker is when it is hit
+      var hx = kx - Math.cos(headN) * lenN * 0.12, hy = ky - Math.sin(headN) * lenN * 0.12;
+      var ti = seg(0.55, HIT, u);
+      if (ti > 0 && u < HIT) {
+        var e = ti * ti;
+        var x0 = -W * 0.2, y0 = H * 0.12;
+        var cx = lerp(x0, hx, e), cy = lerp(y0, hy, e) - Math.sin(ti * 3.1416) * H * 0.08;
+        var hh = fh * lerp(0.5, 1.5, ti);
+        streak(cx, cy, cx - (hx - x0) * 0.12, cy - (hy - y0) * 0.12, hh * 0.08, "rgba(110,220,255,0.9)", 0.8);
+        put(S.cadet, ti * 2 * 24, cx, cy, hh, Math.atan2(hx - x0, -(hy - y0)) + ti * 0.6, 1, false);
+      }
+      var tb = seg(HIT, HIT + 0.07, u);
+      if (tb > 0 && tb < 1) {   // knocked away, tumbling
+        put(S.cadet, tb * 3 * 24, hx - tb * W * 0.5, hy + tb * H * 0.35, fh * lerp(1.5, 0.7, tb), tb * 9, 1 - tb * tb, false);
+      }
+      // no shield on a cargo ship: it blows apart. Hull sections and crates fly out and keep tumbling; scroll back and it reassembles.
+      var tx = u - HIT;
+      if (tx > 0) {
+        var out = 1 - Math.exp(-tx * 16);                       // fast at first, then drifting
+        var drift = tx * 2.2;
+        for (var pc = 0; pc < 22; pc++) {
+          var isPart = pc < 8;
+          var pa = rnd(pc + 11) * 6.2832, pd = lenN * (0.25 + 1.5 * rnd(pc + 31)) * (out + drift * (0.4 + rnd(pc + 7)));
+          var along = (rnd(pc + 60) - 0.5) * lenN * 0.8 * (1 - out * 0.3);   // spread along the hull it came from
+          var px = kx + Math.sin(headN) * along + Math.cos(pa) * pd, py = ky - Math.cos(headN) * along + Math.sin(pa) * pd * 0.85;
+          var sheetP = isPart ? S.parts[pc % 4] : S.crates[pc % 3];
+          put(sheetP, tx * (10 + 22 * rnd(pc + 90)) + pc, px, py, isPart ? lenN * (0.16 + 0.14 * rnd(pc + 3)) : fh * (0.3 + 0.35 * rnd(pc + 4)), headN + pc, 1, false);
+        }
+        var fbx = bump(tx, 0.0, 0.03, 0.3);
+        if (fbx > 0) {
+          var er0 = lenN * (0.35 + tx * 5.0);
+          glow(kx, ky, er0, "rgba(255,170,80,1)", fbx);
+          glow(kx, ky, er0 * 0.5, "rgba(255,255,235,1)", fbx);
+          glow(kx + Math.sin(headN) * lenN * 0.25, ky - Math.cos(headN) * lenN * 0.25, er0 * 0.6, "rgba(255,120,50,1)", fbx * 0.8);
+          glow(kx - Math.sin(headN) * lenN * 0.28, ky + Math.cos(headN) * lenN * 0.28, er0 * 0.55, "rgba(255,200,120,1)", fbx * 0.8);
+          for (var sp = 0; sp < 26; sp++) {
+            var sa = rnd(sp + 200) * 6.2832, sr = er0 * (0.4 + 1.2 * rnd(sp + 230));
+            streak(kx + Math.cos(sa) * sr, ky + Math.sin(sa) * sr, kx + Math.cos(sa) * sr * 0.5, ky + Math.sin(sa) * sr * 0.5, 1.5 + rnd(sp) * 4, "rgba(255,180,90,1)", fbx);
+          }
+        }
+        var smoke = bump(tx, 0.0, 0.08, 0.34);
+        if (smoke > 0) glow(kx, ky, lenN * (0.5 + tx * 3), "rgba(255,110,40,0.6)", smoke * 0.5);
+      }
+    }
+
+    // ----- the chase: one ship comes at you, rolls, grows; a Corsair behind it, firing
+    if (v > 0 && w < 0.12) {
+      var cxm = W * 0.5, cym = H * 0.44;
+      // speed lines pouring out of the middle
+      for (var n = 0; n < 26; n++) {
+        var ang = rnd(n) * 6.2832, ph = (rnd(n + 50) + v * (3 + rnd(n + 9) * 4)) % 1;
+        var r0 = M * (0.12 + ph * 0.9), r1 = r0 + M * 0.16 * ph;
+        streak(cxm + Math.cos(ang) * r1, cym + Math.sin(ang) * r1, cxm + Math.cos(ang) * r0, cym + Math.sin(ang) * r0, 1.2 + ph * 1.5, "rgba(190,220,255,0.9)", ss(0, 0.12, v) * ph * 0.55);
+      }
+      var ev = v * v;
+      var hs = M * lerp(0.1, 1.25, ev);
+      var hxp = cxm + Math.sin(v * 7) * W * 0.13 * (1 - v * 0.6), hyp = lerp(H * 0.36, H * 0.56, ev);
+      var vc = c01((v - 0.28) / 0.72), ec = vc * vc;
+      var cs = M * lerp(0.05, 0.62, ec);
+      var cxp = cxm + Math.sin(v * 7 - 0.9) * W * 0.16 + W * 0.12 * (1 - vc), cyp = lerp(H * 0.28, H * 0.3, ec);
+      if (vc > 0) {
+        put(S.chaser, Math.sin(v * 9) * 1.6, cxp, cyp, cs, 0, ss(0, 0.12, vc), false);
+        // bolts leave the Corsair and come past the hero toward you
+        for (var b = 0; b < 9; b++) {
+          var tbolt = seg(0.4 + b * 0.062, 0.5 + b * 0.062, v);
+          if (tbolt <= 0 || tbolt >= 1) continue;
+          var gun = (b % 2 ? 1 : -1) * cs * 0.22;
+          var tx = hxp + (b % 2 ? 1 : -1) * hs * (0.5 + 0.3 * rnd(b)), ty = H * 1.1;
+          var bx = lerp(cxp + gun, tx, tbolt * tbolt), by = lerp(cyp, ty, tbolt * tbolt);
+          var bx2 = lerp(cxp + gun, tx, Math.max(0, tbolt - 0.16) * Math.max(0, tbolt - 0.16)), by2 = lerp(cyp, ty, Math.max(0, tbolt - 0.16) * Math.max(0, tbolt - 0.16));
+          streak(bx, by, bx2, by2, 2 + 9 * tbolt, "rgba(255,70,50,1)", 1);
+          streak(bx, by, lerp(bx, bx2, 0.4), lerp(by, by2, 0.4), 1 + 3 * tbolt, "rgba(255,230,200,1)", 1);
+        }
+      }
+      var rollT = seg(0.3, 0.62, v);
+      put(S.hero, rollT * 32 + Math.sin(v * 11) * 0.8, hxp, hyp, hs, 0, 1 - ss(0.0, 0.06, w), false);
+      if (w > 0) put(S.chaser, 0, cxp, cyp - w * H * 3, cs * (1 + w * 8), 0, 1 - ss(0.02, 0.1, w), false);
+    }
+
+    // ----- boom: fireball, sparks, white-out, blur; it clears on the station
+    var fb = bump(w, 0.0, 0.1, 0.42);
+    if (fb > 0) {
+      var ex = W * 0.5, ey = H * 0.54, er = M * (0.2 + w * 3.2);
+      glow(ex, ey, er, "rgba(255,200,120,1)", fb);
+      glow(ex, ey, er * 0.55, "rgba(255,255,240,1)", fb);
+      for (var d = 0; d < 22; d++) {
+        var da = rnd(d + 3) * 6.2832, dr = er * (0.3 + rnd(d + 70) * 0.9);
+        streak(ex + Math.cos(da) * dr, ey + Math.sin(da) * dr, ex + Math.cos(da) * dr * 0.55, ey + Math.sin(da) * dr * 0.55, 2 + rnd(d) * 4, "rgba(255,170,80,1)", fb);
+      }
+    }
+    var fl = bump(w, 0.0, 0.11, 0.36);
+    if (Math.abs(fl - lastFlash) > 0.004) { flash.style.opacity = fl.toFixed(3); lastFlash = fl; }
+    var bl = reduce ? 0 : Math.round(bump(w, 0.02, 0.22, 0.62) * 16 + ss(0.9, 1, v) * (1 - ss(0, 0.2, w)) * 3);
+    if (bl !== lastBlur) { fx.style.filter = globeEl.style.filter = bl ? "blur(" + bl + "px)" : "none"; lastBlur = bl; }
+
+    // ----- the station: the game's model turning slowly, running lights blinking; it backs off behind the pictures
+    var stA = ss(0.3, 0.7, w) * (1 - gIn) * c01((mr.top - H * 0.6) / (H * 0.7));   // the station is gone by the time the spoiler warning has passed
+    if (stA > 0) {
+      var arrive = ss(0.3, 1, w);
+      var sx = lerp(W * 0.5, W * 0.76, sIn), syy = lerp(H * 0.4, H * 0.2, sIn);
+      var sh = M * lerp(lerp(1.5, 1.05, arrive), 0.6, sIn);
+      sx -= gIn * W * 0.5; syy -= gIn * H * 0.3;
+      var sa = stA * lerp(1, 0.55, sIn);
+      glow(sx, syy, sh * 0.5, "rgba(80,150,255,0.5)", sa * 0.45);
+      put(S.station, reduce ? 0 : time * 2.2, sx, syy, sh, 0, sa, false);
+      for (var L = 0; L < 14; L++) {
+        var la = rnd(L + 20) * 6.2832, lr = sh * (0.08 + rnd(L + 40) * 0.36);
+        var on = reduce ? 0.6 : Math.max(0, Math.sin(time * (1.4 + rnd(L) * 3.5) + L * 2.1));
+        var flick = L % 5 === 0 ? (Math.sin(time * 31 + L) > 0.2 ? 1 : 0.2) : 1;
+        glow(sx + Math.cos(la) * lr, syy + Math.sin(la) * lr * 0.4, sh * 0.022, L % 3 ? "rgba(140,220,255,1)" : "rgba(255,190,110,1)", sa * on * on * flick);
+      }
+    }
+
+    // ----- the other frames: each walks toward you on its own, with its own world behind it
+    if (soloBest >= 0 && soloA > 0.01) {
+      var so = SOLO[soloBest], sp2 = soloP;
+      var sh2 = Math.min(H * 0.62, W * 1.05) * lerp(0.8, 1.18, sp2);
+      var sxm = asp0 < 0.9 ? W * 0.5 : W * (0.5 - so.side * 0.2);
+      var sym = (asp0 < 0.9 ? H * 0.98 : H * 0.97);
+      glow(sxm, sym - sh2 * 0.1, sh2 * 0.6, "rgba(60,140,255,0.3)", soloA * 0.5);
+      S[so.sheet].m.tilt = 0.087; S[so.sheet].m.yaw = so.side * 5;
+      put(S[so.sheet], walkM + soloBest * 5, sxm, sym - sh2 * 0.5, sh2, 0, soloA, false);
+    }
+
+    // ----- the mech act: one machine strides toward you with its pilot a little ahead; the view pushes in to
+    // the pilot's level until the mech behind fills the sky
+    if (a2In > 0.01) {
+      var zoom = lerp(1, 3.6, ss(0.22, 0.9, act2));
+      var hM = Math.min(H * 0.5, W * 0.8), hP = hM / 3.6;            // a pilot is a bit over a quarter of a mech
+      var gyy = H * 0.9, cxm2 = W * 0.5;
+      var look = lerp(0.087, -0.2, ss(0.3, 0.9, act2));              // the view tips back to look up at them
+      var mstep = walkM, pstep = walkP;                              // big slow strides; quick small steps
+      // the deck they walk on: lines running toward you
+      var vy = gyy - hM * zoom * 0.42;
+      g.save(); g.globalCompositeOperation = "lighter"; g.lineWidth = 1;
+      for (var fl = -8; fl <= 8; fl++) { g.strokeStyle = "rgba(90,200,255," + (0.22 * a2In).toFixed(3) + ")"; g.beginPath(); g.moveTo(cxm2 + fl * hM * 0.05 * zoom, vy); g.lineTo(cxm2 + fl * hM * 0.9 * zoom, H + 40); g.stroke(); }
+      for (var fz = 0; fz < 9; fz++) {
+        var ft = ((fz + (((walkP / 16) * 0.5) % 1 + 1) % 1) / 9); ft = ft * ft;
+        var fyl = lerp(vy, H + 40, ft);
+        g.strokeStyle = "rgba(90,200,255," + (0.3 * a2In * (0.25 + ft)).toFixed(3) + ")"; g.beginPath(); g.moveTo(0, fyl); g.lineTo(W, fyl); g.stroke();
+      }
+      g.restore();
+      glow(cxm2, gyy, hM * zoom * 0.9, "rgba(60,140,255,0.35)", a2In * 0.5);
+      function walker(sh, frame, dx, dy, h, yaw) {
+        sh.m.tilt = look; sh.m.yaw = yaw;
+        var hh2 = h * zoom;
+        put(sh, frame, cxm2 + dx * hM * zoom, gyy + dy * hM * zoom - hh2 * 0.5, hh2, 0, a2In, false);
+      }
+      walker(S.mechTeal, mstep, 0.0, -0.05, hM * 0.98, 0);            // straight behind the lead pilot
+      walker(S.pilot, pstep, 0.0, 0.03, hP, 0);                       // the lead pilot, a step ahead
+    }
+
+    if (globe) globe.render(actors);
+
+    // ----- station pictures pan a little as they pass; the people slide in from the side and back out
+    for (var j = 0; j < shots.length; j++) {
+      var el = shots[j], r = el.getBoundingClientRect();
+      if (r.bottom < -H * 0.3 || r.top > H * 1.3) continue;
+      var c = (r.top + r.height * 0.5 - H * 0.5) / H;      // -0.5 above centre .. 0.5 below
+      var pic = el.firstElementChild;
+      if (pic && pic.className === "pic") pic.style.backgroundPositionX = (-(c + 0.5) * r.width * 0.55).toFixed(1) + "px";
+      var f = el.querySelector(".face");
+      if (f) {
+        var inn = 1 - ss(0.08, 0.5, Math.abs(c + 0.04));
+        var dir = f.className.indexOf(" r") > 0 ? 1 : -1;
+        f.style.transform = "translate3d(" + (dir * (1 - inn) * 115).toFixed(1) + "%,0,0)";
+        f.style.opacity = inn.toFixed(3);
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------- music: off until you ask for it (the game's title theme)
+  var snd = document.getElementById("snd"), audio = null;
+  snd.addEventListener("click", function () {
+    if (!audio) { audio = new Audio("a/theme.mp3"); audio.loop = true; audio.volume = 0.6; }
+    if (audio.paused) { var pl = audio.play(); if (pl && pl.catch) pl.catch(function () {}); snd.setAttribute("aria-pressed", "true"); snd.textContent = "♪ On"; }
+    else { audio.pause(); snd.setAttribute("aria-pressed", "false"); snd.textContent = "♪ Off"; }
+  });
+  document.addEventListener("visibilitychange", function () { if (audio && document.hidden && !audio.paused) { audio.pause(); snd.setAttribute("aria-pressed", "false"); snd.textContent = "♪ Off"; } });
+
+  var last = 0;
+  function tick(now) {
+    var t = now / 1000, dt = Math.min(0.05, t - last || 0.016);
+    last = t;
+    draw(t, dt);
+    requestAnimationFrame(tick);
+  }
+  measure();
+  window.addEventListener("resize", measure);
+  window.addEventListener("load", measure);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measure);
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
