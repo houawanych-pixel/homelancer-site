@@ -1,0 +1,56 @@
+{
+ "blackgold": {
+  "source": "black_gold_mecha",
+  "frames": 24,
+  "frameW": 262,
+  "frameH": 330,
+  "cols": 8,
+  "rows": 3,
+  "fps": 24
+ },
+ "tannavy": {
+  "source": "tan_navy_mecha",
+  "frames": 24,
+  "frameW": 256,
+  "frameH": 330,
+  "cols": 8,
+  "rows": 3,
+  "fps": 24
+ },
+ "boss": {
+  "source": "boss_mech",
+  "frames": 28,
+  "frameW": 250,
+  "frameH": 330,
+  "cols": 8,
+  "rows": 4,
+  "fps": 24
+ },
+ "owner1": {
+  "source": "owner clip1",
+  "frames": 39,
+  "frameW": 236,
+  "frameH": 300,
+  "cols": 8,
+  "rows": 5,
+  "fps": 24
+ },
+ "owner2": {
+  "source": "owner clip2",
+  "frames": 38,
+  "frameW": 250,
+  "frameH": 300,
+  "cols": 8,
+  "rows": 5,
+  "fps": 24
+ },
+ "owner3": {
+  "source": "owner clip3",
+  "frames": 43,
+  "frameW": 220,
+  "frameH": 300,
+  "cols": 8,
+  "rows": 6,
+  "fps": 24
+ }
+}

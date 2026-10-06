@@ -1,0 +1,433 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Homelancer — Mech Shopfronts (scroll demo) | Hova Matrix</title>
+<link rel="stylesheet" href="mechscroll.css"><script src="mechscroll.js" defer></script></head>
+<body><header class="top"><span class="brand">HOVA <span>MATRIX</span></span><span class="tag">Demo · not live</span></header>
+<section class="intro"><span class="eyebrow">Homelancer · star system shopfronts</span><h1>HOMELANCER</h1>
+<p>Scroll down and each faction mech walks through its home system. Scroll up and it walks back.</p>
+<span class="hint">↓ scroll to walk · ↑ scroll to walk back</span></section>
+<main id="systems"></main>
+<footer class="foot">Demo build v02. Veranthos, Dreadholm and Malachar show the owner's own blue-screen mech walk clips, chroma-keyed. Raptian Major, Cynthara and Genesis still use stand-in Blender renders of in-game mechs. Faction liveries are colour tints, not repaints.
+Shop items and prices are PLACEHOLDER. Systems, factions and colours come from star map v4 (draft, not final).</footer>
+<div class="hud" aria-hidden="true"></div>
+<script type="application/json" id="systems-data">{
+  "schemaVersion": 2,
+  "pxPerFrame": 14,
+  "note": "Prices and non-mech items are PLACEHOLDER. Systems/factions/roles/counts from starmap_v4_tiles.csv; colors from approved map v4; themes from Star System Catalog v2 (Bible facts). v02: owner's real clips on Veranthos/Dreadholm/Malachar; Blender stand-ins on Raptian Major/Cynthara/Genesis.",
+  "mechs": {
+    "tan_navy_mecha": {
+      "label": "Tan/Navy Mecha",
+      "source": "GitHub houawanych-pixel/homelancer-digital @ homelancer-v1.2: assets/mechs/tan_navy_mecha.glb (own 'Walk' action)",
+      "sheet": {
+        "webp": "assets/mechs/tannavy/sheet.webp",
+        "png": "assets/mechs/tannavy/sheet.png",
+        "cols": 8,
+        "rows": 3,
+        "frames": 24,
+        "frameW": 256,
+        "frameH": 330
+      },
+      "video": {
+        "webm": "assets/mechs/tannavy/walk.webm",
+        "animWebp": "assets/mechs/tannavy/walk_anim.webp"
+      },
+      "pngSequence": "assets/mechs/tannavy/frames/",
+      "real": false,
+      "motion": "across",
+      "standIn": "Blender blue-screen render (stand-in)"
+    },
+    "black_gold_mecha": {
+      "label": "Black/Gold Mecha",
+      "source": "GitHub houawanych-pixel/homelancer-digital @ homelancer-v1.2: assets/mechs/black_gold_mecha.glb (own 'Walk' action)",
+      "sheet": {
+        "webp": "assets/mechs/blackgold/sheet.webp",
+        "png": "assets/mechs/blackgold/sheet.png",
+        "cols": 8,
+        "rows": 3,
+        "frames": 24,
+        "frameW": 262,
+        "frameH": 330
+      },
+      "video": {
+        "webm": "assets/mechs/blackgold/walk.webm",
+        "animWebp": "assets/mechs/blackgold/walk_anim.webp"
+      },
+      "pngSequence": "assets/mechs/blackgold/frames/",
+      "real": false,
+      "motion": "across",
+      "standIn": "Blender blue-screen render (stand-in)"
+    },
+    "boss_mech": {
+      "label": "Boss Mech",
+      "source": "Drive: Boss Mech/boss_mech_tripo_rigged_20anims.glb (1H7Ou7kJFa04h6BqS8zauW8Y5xHh6D8kR) + 'walk' from Animation Library/anim_pack_04 (1Gr_qfzfGWLcUwJETMAyGY009opfNkWIk)",
+      "sheet": {
+        "webp": "assets/mechs/boss/sheet.webp",
+        "png": "assets/mechs/boss/sheet.png",
+        "cols": 8,
+        "rows": 4,
+        "frames": 28,
+        "frameW": 250,
+        "frameH": 330
+      },
+      "video": {
+        "webm": "assets/mechs/boss/walk.webm",
+        "animWebp": "assets/mechs/boss/walk_anim.webp"
+      },
+      "pngSequence": "assets/mechs/boss/frames/",
+      "real": false,
+      "motion": "across",
+      "standIn": "Blender blue-screen render (stand-in)"
+    },
+    "owner_white_teal": {
+      "label": "White/Teal Mech",
+      "real": true,
+      "motion": "toward",
+      "source": "Owner blue-screen clip1.mp4 (672x448, 24 fps, 6.04 s)",
+      "loop": "frames 54–92 (39)",
+      "sheet": {
+        "webp": "assets/mechs/owner1/sheet.webp",
+        "png": "assets/mechs/owner1/sheet.png",
+        "cols": 8,
+        "rows": 5,
+        "frames": 39,
+        "frameW": 236,
+        "frameH": 300
+      },
+      "video": {
+        "webm": "assets/mechs/owner1/walk.webm",
+        "animWebp": "assets/mechs/owner1/walk_anim.webp"
+      },
+      "pngSequence": "assets/mechs/owner1/frames/"
+    },
+    "owner_red_winged": {
+      "label": "Red Winged Mech",
+      "real": true,
+      "motion": "toward",
+      "source": "Owner blue-screen clip2.mp4 (672x448, 24 fps, 6.04 s)",
+      "loop": "frames 59–96 (38)",
+      "sheet": {
+        "webp": "assets/mechs/owner2/sheet.webp",
+        "png": "assets/mechs/owner2/sheet.png",
+        "cols": 8,
+        "rows": 5,
+        "frames": 38,
+        "frameW": 250,
+        "frameH": 300
+      },
+      "video": {
+        "webm": "assets/mechs/owner2/walk.webm",
+        "animWebp": "assets/mechs/owner2/walk_anim.webp"
+      },
+      "pngSequence": "assets/mechs/owner2/frames/"
+    },
+    "owner_white_darkteal": {
+      "label": "White/Dark-Teal Heavy Mech",
+      "real": true,
+      "motion": "toward",
+      "source": "Owner blue-screen clip3.mp4 (672x448, 24 fps, 6.04 s)",
+      "loop": "frames 92–134 (43)",
+      "sheet": {
+        "webp": "assets/mechs/owner3/sheet.webp",
+        "png": "assets/mechs/owner3/sheet.png",
+        "cols": 8,
+        "rows": 6,
+        "frames": 43,
+        "frameW": 220,
+        "frameH": 300
+      },
+      "video": {
+        "webm": "assets/mechs/owner3/walk.webm",
+        "animWebp": "assets/mechs/owner3/walk_anim.webp"
+      },
+      "pngSequence": "assets/mechs/owner3/frames/"
+    }
+  },
+  "factions": {
+    "Unity": {
+      "primary": "#e8fbff",
+      "secondary": "#00bcd4",
+      "tint": "#00bcd4",
+      "theme": "Law · Order · Diplomacy",
+      "bibleColors": "White + Cyan",
+      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
+      "themeSource": "Catalog v2 (Bible §4)"
+    },
+    "Orion": {
+      "primary": "#0f8a4f",
+      "secondary": "#f0f4f0",
+      "tint": "#0f8a4f",
+      "theme": "War · Conquest",
+      "bibleColors": "Emerald Green + Silver-White",
+      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
+      "themeSource": "Catalog v2 (Bible §4)"
+    },
+    "Imperium": {
+      "primary": "#b0122b",
+      "secondary": "#5a5f66",
+      "tint": "#b0122b",
+      "theme": "Control · Authority",
+      "bibleColors": "Crimson Red + Gunmetal",
+      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
+      "themeSource": "Catalog v2 (Bible §4)"
+    },
+    "Savagers": {
+      "primary": "#cc5500",
+      "secondary": "#333333",
+      "tint": "#cc5500",
+      "theme": "Chaos · Salvage",
+      "bibleColors": "Burnt Orange + Charcoal",
+      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
+      "themeSource": "Catalog v2 (Bible §4)"
+    },
+    "Gadversee": {
+      "primary": "#2e3034",
+      "secondary": "#C8E000",
+      "tint": "#C8E000",
+      "enemy": true,
+      "bibleColors": "Black + Toxic Green",
+      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
+      "threat": "Legendary",
+      "themeSource": "Catalog v2 §5 (Bible): threat label"
+    },
+    "Kaijurai": {
+      "primary": "#2e3034",
+      "secondary": "#FFD000",
+      "tint": "#FFD000",
+      "enemy": true,
+      "bibleColors": "Black + Radioactive Yellow",
+      "colorSource": "map v4 (make_map_v4.py COL / enemies)",
+      "threat": "Celestial",
+      "themeSource": "Catalog v2 §5 (Bible): threat label"
+    }
+  },
+  "systems": [
+    {
+      "id": "veranthos",
+      "name": "Veranthos",
+      "tile": "C5",
+      "faction": "Unity",
+      "role": "capital · FIRST BUILD",
+      "planets": 5,
+      "stations": 4,
+      "mech": "owner_white_teal",
+      "tintStrength": 0.0,
+      "catalog": [
+        {
+          "kind": "mech",
+          "mech": "owner_white_teal",
+          "title": "White/Teal Mech — Unity",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "ship",
+          "title": "Ship item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "gear",
+          "title": "Gear item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "cosmetic",
+          "title": "Cosmetic item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "dreadholm",
+      "name": "Dreadholm",
+      "tile": "F4",
+      "faction": "Orion",
+      "role": "capital",
+      "planets": 5,
+      "stations": 4,
+      "mech": "owner_white_darkteal",
+      "tintStrength": 0.35,
+      "catalog": [
+        {
+          "kind": "mech",
+          "mech": "owner_white_darkteal",
+          "title": "White/Dark-Teal Heavy Mech — Orion livery",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "weapon",
+          "title": "Weapon item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "ship",
+          "title": "Ship item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "gear",
+          "title": "Gear item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "malachar",
+      "name": "Malachar",
+      "tile": "E6",
+      "faction": "Imperium",
+      "role": "capital",
+      "planets": 5,
+      "stations": 3,
+      "mech": "owner_red_winged",
+      "tintStrength": 0.0,
+      "catalog": [
+        {
+          "kind": "mech",
+          "mech": "owner_red_winged",
+          "title": "Red Winged Mech — Imperium",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "gear",
+          "title": "Gear item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "weapon",
+          "title": "Weapon item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "cosmetic",
+          "title": "Cosmetic item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "raptian-major",
+      "name": "Raptian Major",
+      "tile": "E3",
+      "faction": "Savagers",
+      "role": "capital",
+      "planets": 4,
+      "stations": 3,
+      "mech": "tan_navy_mecha",
+      "tintStrength": 0.7,
+      "catalog": [
+        {
+          "kind": "mech",
+          "mech": "tan_navy_mecha",
+          "title": "Tan/Navy Mecha — Savagers livery",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "salvage",
+          "title": "Salvage item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "weapon",
+          "title": "Weapon item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "gear",
+          "title": "Gear item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "cynthara",
+      "name": "Cynthara",
+      "tile": "A1",
+      "faction": "Gadversee",
+      "role": "enemy home",
+      "planets": 3,
+      "stations": 1,
+      "mech": "boss_mech",
+      "tintStrength": 0.7,
+      "catalog": [
+        {
+          "kind": "mech",
+          "mech": "boss_mech",
+          "title": "Boss Mech — Gadversee livery",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "weapon",
+          "title": "Weapon item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "gear",
+          "title": "Gear item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "cosmetic",
+          "title": "Cosmetic item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        }
+      ]
+    },
+    {
+      "id": "genesis",
+      "name": "Genesis",
+      "tile": "H6",
+      "faction": "Kaijurai",
+      "role": "enemy home",
+      "planets": 3,
+      "stations": 1,
+      "mech": "black_gold_mecha",
+      "tintStrength": 0.7,
+      "catalog": [
+        {
+          "kind": "mech",
+          "mech": "black_gold_mecha",
+          "title": "Black/Gold Mecha — Kaijurai livery",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "gear",
+          "title": "Gear item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "weapon",
+          "title": "Weapon item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        },
+        {
+          "kind": "ship",
+          "title": "Ship item",
+          "price": "PLACEHOLDER",
+          "placeholder": true
+        }
+      ]
+    }
+  ]
+}</script>
+</body></html>
