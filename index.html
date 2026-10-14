@@ -141,6 +141,30 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; text-transform: uppe
 }
 @media (prefers-reduced-motion: reduce) { .cue { animation: none; } }
 </style>
+<style>
+
+/* Homelancer 2026 intro upgrade: preserve the scroll film, improve navigation and mobile entry. */
+html{scroll-padding-top:84px}
+.bar{gap:18px;box-shadow:0 1px 0 #ffffff1b;background:linear-gradient(180deg,#04060bf5,#04060b9b)}
+.mark{flex:none}.quick-nav{display:flex;gap:clamp(9px,2.4vw,28px);align-items:center;margin-left:auto}
+.quick-nav a{font:700 12px var(--mono);text-decoration:none;text-transform:uppercase;letter-spacing:.14em;color:#cfdeec;white-space:nowrap;padding:9px 0}
+.quick-nav a:hover{color:#fff}.tools{margin-left:8px}
+.title{position:relative;max-width:1100px;margin:0 auto;padding-top:120px;padding-bottom:52px;isolation:isolate}
+.title:before{content:"";position:absolute;inset:15% 0 4%;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 46%,#071523af,transparent 69%)}
+.title h1{font-size:clamp(70px,15.2vw,200px);line-height:.86;letter-spacing:.045em;text-shadow:0 2px 0 #23404b,0 10px 60px #000}
+.title>.mono:first-child{color:#85e9f8;font-size:clamp(11px,1.3vw,15px);letter-spacing:.24em}
+.title>p{max-width:44ch;font-size:clamp(16px,1.7vw,20px);line-height:1.6;color:#dbe8f7;text-wrap:pretty}
+.title .btn.big{margin-top:24px;min-height:60px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 0 32px #39c6dc45}
+.title .cue{color:#c1ced9;letter-spacing:.15em}
+.hm-intro-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:16px}
+.hm-intro-actions a{display:inline-flex;min-height:48px;align-items:center;justify-content:center;padding:10px 18px;text-decoration:none;font:700 12px var(--mono);text-transform:uppercase;letter-spacing:.12em;border:1px solid #a3d6e288;background:#050b15d9;color:#edfbff;backdrop-filter:blur(8px)}
+.hm-intro-actions a:hover{background:#14364c;border-color:#8beaff}
+.hm-intro-kicker{margin-top:24px!important;color:#9ce7f3!important;font-size:12px!important;letter-spacing:.12em!important;max-width:80ch!important}
+@media(max-width:880px){.quick-nav{display:none}.bar{padding-right:15px;padding-left:15px}.title{padding-top:110px}}
+@media(max-width:520px){.title{min-height:100svh;padding-top:115px;padding-bottom:34px}.title h1{font-size:clamp(59px,16vw,95px);letter-spacing:0}.title>p{max-width:30ch}.hm-intro-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:9px}.hm-intro-actions a{font-size:11px;padding:12px 8px}.title .btn.big{width:min(100%,340px);padding:14px 24px}.title .cue{margin-top:16px}.hm-intro-kicker{font-size:11px!important}.snd{min-width:46px;min-height:44px}.play{min-height:44px;display:flex;align-items:center}}
+@media(prefers-reduced-motion:reduce){.title .cue{animation:none}.hm-intro-actions a{backdrop-filter:none}}
+
+</style>
 </head>
 <body>
 <div class="stage" aria-hidden="true">
@@ -154,6 +178,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; text-transform: uppe
 <div class="scrub" id="scrub"></div>
 <header class="bar">
   <a class="mark" href="#film">Home<b>lancer</b></a>
+  <nav class="quick-nav" aria-label="Explore Homelancer"><a href="#station">Liberty Hub</a><a href="#spoiler">Mech reveal</a><a href="#world">The galaxy</a></nav>
   <span class="tools"><button class="snd" id="snd" type="button" aria-pressed="false" aria-label="Music">♪ Off</button><a class="play" href="https://houawanych-pixel.github.io/homelancer-digital/" aria-label="Test the beta"><span class="lg">Test the beta</span><span class="sm">Play</span></a></span>
 </header>
 
@@ -162,9 +187,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 900; text-transform: uppe
     <div class="title shadow">
       <span class="mono">A space game you fly from your phone</span>
       <h1>Homelancer</h1>
-      <p>Scroll down and the film runs. Scroll back up and it runs backwards.</p>
-      <a class="btn big" href="https://houawanych-pixel.github.io/homelancer-digital/">Test the beta</a>
-      <span class="mono cue">or scroll and watch ↓</span>
+      <p>Explore a living galaxy. Fly into battle, discover Liberty Hub, and uncover the machines behind your next adventure.</p>
+      <a class="btn big" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Play the beta ↗</a>
+      <div class="hm-intro-actions" aria-label="Explore the introduction"><a href="#station">Explore Liberty Hub ↓</a><a href="#spoiler">See the mech reveal ↓</a></div>
+      <p class="hm-intro-kicker">A cinematic introduction built with actual game models. Scroll to experience the story.</p>
+      <span class="mono cue">Scroll to enter the galaxy ↓</span>
     </div>
     <div class="roll shadow" id="roll">
       <div class="lead">Sixty-seven star systems<small>one map · eleven by eleven</small></div>
