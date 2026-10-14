@@ -1,12 +1,37 @@
 # Homelancer site (homelancergame.com)
 
-`index.html` is the scroll film: a space battle behind rolling credits, a chase and explosion into Liberty Hub, a
-spoiler warning, then the mechs. Everything on it is the game's own 3D model running live (three.js r128 from a CDN).
+One static page, `index.html`: no 3D model loading, no build step. GitHub Pages serves it from `main`.
 
-* `a/` pictures, planet maps, sound, and the flat stand-in sheets shown while a ship model downloads.
-* `m/` the models, one `<name>.json` (glTF with its geometry inline) plus `<name>_N.jpg` textures.
-  To swap a model: replace its files in `m/` under the same name (or add new ones and change the name in the
-  `S.<thing>.m = { file: "..." }` lines near the top of the script in `index.html`).
-* Everything on the stage is a function of the scroll position, so scrolling back runs it in reverse.
-* "Test the beta" links to https://houawanych-pixel.github.io/homelancer-digital/
-* `v02/` is the earlier mech shopfront scroll demo, kept as it was: https://homelancergame.com/v02/
+Sections: hero (fixed **Start Game** button in the header, plus hero and final buttons) · the game · galaxy chart ·
+ships · mechs (arms / core / legs) · fourteen factions · stations · in-game screenshots · play.
+
+* Every "Start Game" link goes to https://houawanych-pixel.github.io/homelancer-digital/ — keep the header button.
+* Galleries are side-scrolling rails (`.horizontal-gallery`, swipe on phones, ← → buttons on desktop).
+* Parallax on the hero and the two image bands; all of it off when the visitor asks for reduced motion.
+* Fonts: Barlow Condensed (display), Space Grotesk (body), Chakra Petch (labels), from Google Fonts.
+
+## Pictures (`a/`)
+
+| folder | what | source |
+| --- | --- | --- |
+| `a/hero2.webp` | Veranthos Senate Station with the Lancer | rendered from the game's 3D models |
+| `a/ship/` | 5 player ships + 9 faction ships | rendered from the game's 3D models |
+| `a/mech/` | 12 mech frames, the arms/core/legs split, mixed mechs | rendered from the game's 3D models |
+| `a/st/` | 14 stations | rendered from the game's 3D station models |
+| `a/fac/` | 14 faction pictures | the game's faction interface art (`assets/hub_bg`) |
+| `a/play/` | screenshots of the beta | the game's route test |
+| `a/galaxy_map.webp` | galaxy chart | drawn from the game's system data |
+| `a/room_*.jpg` | Liberty Hub rooms | owner's station art |
+
+Each picture has a full size and a smaller one (`-800`, `-450`, `-640`, `-960`); the page picks one with `srcset`.
+The renders are made in the game repo with `tools/shipkit/beauty.gd` (run from an empty Godot project).
+Older files (`a/hero.webp`, `a/cadet.webp` ... stand-in sprite sheets) are no longer used by the page.
+
+* `m/` the models of the old 3D scroll film (not used by the page any more).
+* `v02/` the earlier mech shopfront scroll demo, kept as it was: https://homelancergame.com/v02/
+
+## Tests
+
+`node tools/test_site.js <url> <outdir> [label]` (Playwright): 360 / 390 / 768 / 1440 wide, with and without reduced
+motion — no sideways page scroll, header Start Game always visible and on top, every image loads, every gallery moves
+with its arrows and with a swipe, in-page links exist, buttons at least 44 px, no console errors.
