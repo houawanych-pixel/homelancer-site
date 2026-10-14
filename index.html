@@ -60,6 +60,29 @@ footer{padding:27px 0 34px;border-top:1px solid var(--line);color:#9fb0c5;font-s
 @media(max-width:360px){.logo{font-size:18px}.header-inner>.play-btn{font-size:10px;padding:9px}.hero h1{font-size:65px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.feature img,.play-btn{transition:none}}
 </style>
+<style>
+/* Editorial motion and side-scrolling gallery upgrade */
+.hero-bg{transform:translate3d(0,var(--hero-y,0px),0) scale(1.12);will-change:transform}
+.feature-grid{grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr)}
+.feature-grid .feature:first-child img{height:350px}.feature-grid .feature:nth-child(2) img{height:350px}
+.rail-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:18px}
+.rail-controls{display:flex;gap:9px;flex:none}
+.rail-controls button{height:44px;width:44px;border:1px solid #8bc6da66;background:#11263b;color:#fff;border-radius:4px;cursor:pointer;font-size:22px}
+.rail-controls button:hover{background:#1b4962}.rail-controls button:focus-visible{outline:3px solid var(--cyan)}
+.horizontal-gallery{display:flex;gap:20px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#447c91 #111b2b;padding:6px 2px 20px}
+.horizontal-gallery figure{flex:0 0 min(34vw,410px);scroll-snap-align:start;margin:0;border-radius:7px;overflow:hidden;border:1px solid var(--line);background:#111b2b}
+.horizontal-gallery figure img{width:100%;height:260px;object-fit:cover}
+.horizontal-gallery figcaption{padding:15px 18px;color:#e7f4ff;font-size:14px;font-weight:700}
+.rail-note{color:var(--muted);font-size:13px;margin-top:4px}
+.parallax-band{position:relative;height:clamp(300px,43vw,530px);overflow:hidden;display:flex;align-items:center;isolation:isolate;border-block:1px solid #ffffff35}
+.parallax-band img{position:absolute;inset:-18% 0;width:100%;height:136%;object-fit:cover;z-index:-2;transform:translate3d(0,var(--band-y,0px),0)}
+.parallax-band:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#030911ed,transparent 85%),linear-gradient(0deg,#030911b5,transparent)}
+.parallax-band h2{font:900 clamp(55px,9vw,132px)/.87 var(--display);text-transform:uppercase;max-width:760px;margin:16px 0}
+.parallax-band p{color:#e4f0fa;max-width:540px}
+@media(max-width:700px){.feature-grid{grid-template-columns:1fr}.horizontal-gallery figure{flex-basis:84%;max-width:400px}.horizontal-gallery figure img{height:240px}.rail-head{align-items:center}.parallax-band{height:390px}.parallax-band img{object-position:65% center}.parallax-band h2{font-size:clamp(58px,14vw,90px)}}
+@media(prefers-reduced-motion:reduce){.hero-bg,.parallax-band img{transform:none!important;will-change:auto}.horizontal-gallery{scroll-behavior:auto}}
+
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -83,16 +106,19 @@ footer{padding:27px 0 34px;border-top:1px solid var(--line);color:#9fb0c5;font-s
 <article class="feature"><img loading="lazy" src="a/chaser.webp" alt="Homelancer spacecraft concept art" width="1200" height="675"><div class="feature-copy"><small>01 / Space combat</small><h3>Take the controls</h3><p>Fly your ship and fight for survival in a dangerous frontier.</p></div></article>
 <article class="feature"><img loading="lazy" src="a/corsair.webp" alt="Corsair spacecraft artwork" width="1200" height="675"><div class="feature-copy"><small>02 / Rival factions</small><h3>Choose your path</h3><p>Discover the factions and ships shaping the galaxy.</p></div></article>
 </div></div></section>
+<section class="parallax-band" aria-labelledby="interlude-title"><img src="a/sky_solara.jpg" alt="" loading="lazy"><div class="wrap"><span class="eyebrow">A universe in motion</span><h2 id="interlude-title">Beyond every horizon.</h2><p>Explore unknown routes, encounter rival ships and discover the places between the stars.</p></div></section>
 <section class="content" id="galaxy"><div class="wrap"><span class="eyebrow">Beyond the horizon</span><h2 class="section-title">Countless destinations.</h2><p class="section-lead">From the familiar routes of settled systems to remote outposts and dangerous frontiers, every journey starts with a destination.</p>
 <div class="wide-showcase"><img loading="lazy" src="a/sky_solara.jpg" alt="Starfield and planetary vista of Homelancer's Solara system"><div class="wide-copy"><span class="eyebrow">Explore the universe</span><h3>Find your<br>next frontier.</h3><p>Trade routes, hostile encounters, distant stations, and undiscovered corners await as the world of Homelancer continues to grow.</p></div></div></div></section>
 <section class="content" id="ships"><div class="wrap"><span class="eyebrow">Built for adventure</span><h2 class="section-title">Ships &amp; machines.</h2><p class="section-lead">Discover the hardware of the frontier—from fast fighters to heavier vessels. Some ships can transform into ground-capable mechs.</p>
-<div class="gallery">
+<div class="rail-head"><p class="rail-note">Swipe to explore the fleet →</p><div class="rail-controls"><button type="button" data-rail="ships-gallery" data-dir="-1" aria-label="Previous ships">←</button><button type="button" data-rail="ships-gallery" data-dir="1" aria-label="Next ships">→</button></div></div>
+<div class="horizontal-gallery" id="ships-gallery" tabindex="0" aria-label="Ship artwork gallery">
 <figure><img loading="lazy" src="a/cadet.webp" alt="Cadet ship concept"><figcaption>Cadet / Light vessel</figcaption></figure>
 <figure><img loading="lazy" src="a/carrier.webp" alt="Carrier ship concept"><figcaption>Carrier / Heavy support</figcaption></figure>
 <figure><img loading="lazy" src="a/tanker.webp" alt="Tanker ship concept"><figcaption>Tanker / Cargo vessel</figcaption></figure>
 </div><p class="disclaimer">Images are game-world artwork and concept assets; current beta gameplay and available features may differ.</p></div></section>
 <section class="content" id="station"><div class="wrap"><span class="eyebrow">Welcome to Liberty Hub</span><h2 class="section-title">More than a cockpit.</h2><p class="section-lead">Step into stations, explore their spaces, and get a glimpse of life beyond your ship.</p>
-<div class="gallery">
+<div class="rail-head"><p class="rail-note">Swipe through Liberty Hub →</p><div class="rail-controls"><button type="button" data-rail="station-gallery" data-dir="-1" aria-label="Previous station image">←</button><button type="button" data-rail="station-gallery" data-dir="1" aria-label="Next station image">→</button></div></div>
+<div class="horizontal-gallery" id="station-gallery" tabindex="0" aria-label="Liberty Hub gallery">
 <figure><img loading="lazy" src="a/room_main_hub.jpg" alt="Liberty Hub main concourse"><figcaption>Main concourse</figcaption></figure>
 <figure><img loading="lazy" src="a/room_hangar.jpg" alt="Liberty Hub hangar"><figcaption>Hangar bay</figcaption></figure>
 <figure><img loading="lazy" src="a/room_bar.jpg" alt="Liberty Hub bar"><figcaption>Station lounge</figcaption></figure>
@@ -100,4 +126,25 @@ footer{padding:27px 0 34px;border-top:1px solid var(--line);color:#9fb0c5;font-s
 <section id="play" aria-labelledby="play-title"><div class="wrap"><span class="eyebrow">Ready for launch?</span><h2 class="section-title" id="play-title">The galaxy is waiting.</h2><p class="section-lead">Experience the evolving Homelancer Digital test beta directly in your browser. On mobile, landscape orientation is recommended for gameplay.</p><a class="play-btn" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Start Game Now ↗</a><p class="disclaimer">Early test build. Features and visuals are subject to change.</p></div></section>
 </main>
 <footer><div class="wrap footer-inner"><span>© 2026 Homelancer · Independent game in development</span><span>Built for desktop and mobile browsers</span></div></footer>
-</body></html>
+<script>
+(() => {
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.querySelectorAll('[data-rail]').forEach(b => b.addEventListener('click', () => {
+ const rail = document.getElementById(b.dataset.rail);
+ if (!rail) return;
+ const item = rail.querySelector('figure');
+ rail.scrollBy({left:Number(b.dataset.dir) * ((item?.getBoundingClientRect().width || 300)+20),behavior:reduce?'auto':'smooth'});
+}));
+if (reduce) return;
+const hero = document.querySelector('.hero'), band = document.querySelector('.parallax-band');
+let scheduled=false;
+function draw(){
+ scheduled=false;
+ const y=window.scrollY, vh=window.innerHeight;
+ if(hero && y<vh*1.5)hero.style.setProperty('--hero-y',Math.round(Math.min(vh,y)*.13)+'px');
+ if(band){const r=band.getBoundingClientRect();if(r.top<vh&&r.bottom>0){const offset=(vh/2-(r.top+r.height/2))*.12;band.style.setProperty('--band-y',Math.round(offset)+'px')}}
+}
+function request(){if(!scheduled){scheduled=true;requestAnimationFrame(draw)}}
+addEventListener('scroll',request,{passive:true});addEventListener('resize',request);draw();
+})();
+</script></body></html>
