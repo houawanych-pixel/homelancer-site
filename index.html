@@ -33,6 +33,10 @@
 .hero-actions .play-btn{min-height:59px;padding:15px 27px;font-size:15px}
 .secondary-btn{display:inline-flex;align-items:center;justify-content:center;min-height:59px;padding:13px 25px;border:1px solid #c4d9ed91;background:#090e19a8;border-radius:4px;font-size:14px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
 .secondary-btn:hover{background:#233d52}
+/* Ready state: add class="ready" to any .play-btn or .secondary-btn whose target is live (green = ready to go). Remove it to fall back to the normal look. */
+.play-btn.ready{background:#39e58c;color:#03170c;border-color:#b6ffd6;box-shadow:0 0 20px #39e58c47}
+.play-btn.ready:hover{background:#b9ffd7;box-shadow:0 0 30px #39e58c70}.play-btn.ready:focus-visible{outline-color:#39e58c}
+.secondary-btn.ready{border-color:#39e58cc2;color:#d8ffe9}.secondary-btn.ready:hover{background:#12402b}.secondary-btn.ready:focus-visible{outline-color:#39e58c}
 .hero-stats{display:flex;flex-wrap:wrap;gap:20px 32px;border-top:1px solid #ffffff42;padding-top:23px;max-width:590px}
 .hero-stats strong{display:block;font:800 34px/1 var(--display);color:#fff}
 .hero-stats span{display:block;margin-top:7px;font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#c6d3e3}
@@ -133,7 +137,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap}footer a{color:#cfe3f5}footer
 <header class="site-header"><div class="wrap header-inner">
 <a class="logo" href="#top" aria-label="Homelancer home">HOME<span>LANCER</span></a>
 <nav class="desktop-nav" aria-label="Main navigation"><a href="#galaxy">Galaxy</a><a href="#ships">Ships</a><a href="#mechs">Mechs</a><a href="#factions">Factions</a><a href="#stations">Stations</a></nav>
-<a class="play-btn" id="start-top" href="https://houawanych-pixel.github.io/homelancer-digital/" aria-label="Start Homelancer Digital game">▶ Start Game <span aria-hidden="true">↗</span></a>
+<a class="play-btn ready" id="start-top" href="https://houawanych-pixel.github.io/homelancer-digital/" aria-label="Start Homelancer Digital game">▶ Start Game <span aria-hidden="true">↗</span></a>
 </div></header>
 <main id="main">
 <section class="hero" id="top" aria-labelledby="hero-title">
@@ -141,7 +145,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap}footer a{color:#cfe3f5}footer
 <div class="wrap"><span class="eyebrow">Your next frontier starts here</span>
 <h1 id="hero-title">HOME<span>LANCER</span></h1>
 <p class="lead">Fly your ship, transform it into a mech, and fight your way across a galaxy of rival factions — one charted system at a time.</p>
-<div class="hero-actions"><a class="play-btn" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Start Game <span aria-hidden="true">↗</span></a><a class="secondary-btn" href="#universe">Explore the universe ↓</a></div>
+<div class="hero-actions"><a class="play-btn ready" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Start Game <span aria-hidden="true">↗</span></a><a class="secondary-btn ready" href="#universe">Explore the universe ↓</a></div>
 <div class="hero-stats"><div><strong>SPACE</strong><span>Flight &amp; combat</span></div><div><strong>MECH</strong><span>Transform &amp; build</span></div><div><strong>FACTIONS</strong><span>Allies &amp; rivals</span></div></div>
 </div><div class="scroll-hint">Scroll to explore ↓</div></section>
 
@@ -179,7 +183,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap}footer a{color:#cfe3f5}footer
 <div class="fr-banner" id="fr-banner"><img id="fr-banner-image" src="assets/factions/elyza.webp" alt="Elyza faction concept art" width="1600" height="900" decoding="async" draggable="false"><span class="fr-badge" id="fr-badge">Concept art</span></div>
 <div class="fr-plate"><div class="fr-emblem" id="fr-emblem" aria-hidden="true"></div>
 <div class="fr-copy"><span class="fr-code" id="fr-kicker">01 / Major faction</span><h3 id="fr-name">Elyza</h3><p id="fr-description">Living worlds and crystal-forged lightsabers: Elyza guards the ancient energy of Aurelion.</p></div>
-<div class="fr-side"><div class="fr-tags" id="fr-tags"><span>Major faction</span><span>Nature · Ancient Energy</span></div><a class="play-btn" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Start Game ↗</a></div></div></div>
+<div class="fr-side"><div class="fr-tags" id="fr-tags"><span>Major faction</span><span>Nature · Ancient Energy</span></div><a class="play-btn ready" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Start Game ↗</a></div></div></div>
 <div class="fr-dots" id="fr-dots" role="group" aria-label="Choose a faction"></div>
 <p class="disclaimer">Concept art, pending owner review: not final canon, and a portrait may not show every species within a faction.</p>
 </div></section>
@@ -202,7 +206,7 @@ footer .links{display:flex;gap:18px;flex-wrap:wrap}footer a{color:#cfe3f5}footer
 <div class="rail-head"><p class="rail-note">Swipe through the screenshots →</p><div class="rail-controls"><button type="button" data-rail="beta-gallery" data-dir="-1" aria-label="Previous screenshot">←</button><button type="button" data-rail="beta-gallery" data-dir="1" aria-label="Next screenshot">→</button></div></div><div class="horizontal-gallery rail-wide" id="beta-gallery" tabindex="0" role="region" aria-label="screenshot gallery"><figure><img loading="lazy" decoding="async" src="a/play/heavy_mounts.webp" srcset="a/play/heavy_mounts-640.webp 640w, a/play/heavy_mounts.webp 1280w" sizes="(max-width:700px) 84vw, 410px" alt="Heavy launcher and rocket rack on the wing mounts" width="1280" height="720"><figcaption>Heavy mounts <span>Wing loadout</span></figcaption></figure><figure><img loading="lazy" decoding="async" src="a/play/mech_flight.webp" srcset="a/play/mech_flight-640.webp 640w, a/play/mech_flight.webp 1280w" sizes="(max-width:700px) 84vw, 410px" alt="A mixed mech in flight near a station" width="1280" height="720"><figcaption>Mech form <span>Mixed parts</span></figcaption></figure><figure><img loading="lazy" decoding="async" src="a/play/wing_guns.webp" srcset="a/play/wing_guns-640.webp 640w, a/play/wing_guns.webp 1280w" sizes="(max-width:700px) 84vw, 410px" alt="Rifles on the shoulder mounts, gatling and pod under the tips" width="1280" height="720"><figcaption>Wing guns <span>Shoulder &amp; tip mounts</span></figcaption></figure><figure><img loading="lazy" decoding="async" src="a/play/galaxy_chart.webp" srcset="a/play/galaxy_chart-640.webp 640w, a/play/galaxy_chart.webp 1280w" sizes="(max-width:700px) 84vw, 410px" alt="The in-game galaxy chart with fog of war" width="1280" height="720"><figcaption>Galaxy chart <span>Fog of war</span></figcaption></figure><figure><img loading="lazy" decoding="async" src="a/play/mech_dealer.webp" srcset="a/play/mech_dealer-640.webp 640w, a/play/mech_dealer.webp 1280w" sizes="(max-width:700px) 84vw, 410px" alt="The mech dealer page in a station" width="1280" height="720"><figcaption>Mech dealer <span>Arms · core · legs</span></figcaption></figure></div>
 <span class="tag">Early test build · updated often</span></div></section>
 
-<section id="play" aria-labelledby="play-title"><div class="wrap"><span class="eyebrow">Ready for launch?</span><h2 class="section-title" id="play-title">The galaxy is waiting.</h2><p class="section-lead">Play the Homelancer Digital test beta in your browser, free. Pick a pilot slot and your progress saves on your device. On a phone, turn it sideways.</p><a class="play-btn" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Start Game Now ↗</a><p class="disclaimer">Early test build. Features and visuals change often.</p></div></section>
+<section id="play" aria-labelledby="play-title"><div class="wrap"><span class="eyebrow">Ready for launch?</span><h2 class="section-title" id="play-title">The galaxy is waiting.</h2><p class="section-lead">Play the Homelancer Digital test beta in your browser, free. Pick a pilot slot and your progress saves on your device. On a phone, turn it sideways.</p><a class="play-btn ready" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Start Game Now ↗</a><p class="disclaimer">Early test build. Features and visuals change often.</p></div></section>
 </main>
 <footer><div class="wrap footer-inner"><span>© 2026 Homelancer · Independent game in development · Test beta</span><span class="links"><a href="https://houawanych-pixel.github.io/homelancer-digital/">Play the beta</a><a href="https://houawanych-pixel.github.io/hova-matrix/">Hova Matrix</a><a href="#top">Back to top ↑</a></span></div></footer>
 <script>
