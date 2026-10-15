@@ -18,7 +18,8 @@ ships · mechs (arms / core / legs) · fourteen factions · stations · in-game 
 | `a/ship/` | 5 player ships + 9 faction ships | rendered from the game's 3D models |
 | `a/mech/` | 12 mech frames, the arms/core/legs split, mixed mechs | rendered from the game's 3D models |
 | `a/st/` | 14 stations | rendered from the game's 3D station models |
-| `a/fac/` | 14 faction pictures | the game's faction interface art (`assets/hub_bg`) |
+| `assets/factions/` | 14 faction concept-art banners (1600×900; Imperium is 900×1600 portrait) used by the faction showcase | Homelancer_Faction_Web_Artwork_14.zip (concept art, pending owner review) |
+| `a/fac/` | 14 faction pictures (the "Fourteen factions" rail) | the game's faction interface art (`assets/hub_bg`) |
 | `a/play/` | screenshots of the beta | the game's route test |
 | `a/galaxy_map.webp` | galaxy chart | drawn from the game's system data |
 | `a/room_*.jpg` | Liberty Hub rooms | owner's station art |
