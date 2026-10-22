@@ -1,0 +1,13 @@
+# Homelancer community feedback worker (worker/feedback.js). Deployed by .github/workflows/feedback-worker.yml.
+# The database_id below is filled in by that workflow on the first run. Secrets (ADMIN_KEY, SALT) are never written here.
+name = "homelancer-feedback"
+main = "feedback.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+ORIGINS = "https://homelancergame.com,https://www.homelancergame.com,https://houawanych-pixel.github.io"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "homelancer-feedback"
+database_id = "00000000-0000-0000-0000-000000000000"
