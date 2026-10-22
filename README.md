@@ -36,3 +36,24 @@ Older files (`a/hero.webp`, `a/cadet.webp` ... stand-in sprite sheets) are no lo
 `node tools/test_site.js <url> <outdir> [label]` (Playwright): 360 / 390 / 768 / 1440 wide, with and without reduced
 motion — no sideways page scroll, header Start Game always visible and on top, every image loads, every gallery moves
 with its arrows and with a swipe, in-page links exist, buttons at least 44 px, no console errors.
+
+## Help Build Homelancer (`help/`)
+
+The community page: **Report a Bug**, a public board (Bug Reports · Gameplay Feedback · Feature Suggestions · General
+Discussion) with statuses, upvotes, duplicate hints and comments, plus **Latest fixes & updates**. No account, email or
+donation needed. `help/admin.html` is the developer dashboard (not linked, `noindex`): review, prioritise, change status,
+reply, merge duplicates, hide spam, mark fixed in a version, write patch notes.
+
+* **Server:** `worker/feedback.js`, a Cloudflare Worker with a D1 database (`worker/schema.sql`). Stores reports, votes,
+  comments, flags, statuses and patch notes. Rate limits, honeypot + time-to-fill checks, spam filter, auto-hide after 3
+  flags, screenshots checked by their bytes (PNG/JPEG/WebP, 1.5 MB) and visible to the developer only. Player identity =
+  a random token in the browser, stored only as a salted hash. Video links, screenshots and hashes never leave the admin API.
+* **Switching it on (once):** add repo secrets `CLOUDFLARE_API_TOKEN` (Workers Scripts: Edit + D1: Edit),
+  `CLOUDFLARE_ACCOUNT_ID` and `FEEDBACK_ADMIN_KEY` (20+ characters), then run *Actions → Deploy feedback server*. It
+  creates the database, deploys the worker, sets the secrets and writes the address into `help/feedback.json`.
+  Until then the page says reports are being switched on and shows the verified patch notes from `help/patches.json`.
+* **Patch notes:** only changes that shipped in a real game update. `worker/seed-patches.sql` holds the verified
+  v1.9k–v1.9p releases; new ones are written in the dashboard.
+* **Tests:** local server `cd worker && npx wrangler d1 execute homelancer-feedback --local --file schema.sql && npx wrangler dev --local`
+  (secrets in `worker/.dev.vars`, git-ignored), then `node tools/test_feedback_api.js http://localhost:8787 <key>` (34 checks) and,
+  with `help/feedback.json` pointed at it, `node tools/test_help.js http://localhost:8080 <outdir> <key>` (23 checks).

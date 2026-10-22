@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#080d19">
+<title>Homelancer — Developer Dashboard</title>
+<link rel="stylesheet" href="help.css">
+<style>
+.adm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:16px;align-items:start}
+.adm .post{grid-template-columns:52px 1fr;cursor:pointer}.pane h2{font-size:26px;line-height:1.05}.adm .post.sel{border-color:var(--cyan)}
+.pane{position:sticky;top:76px;max-height:calc(100vh - 90px);overflow:auto;padding:16px;background:var(--panel);border:1px solid #ffffff1f;border-radius:6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pr{display:flex;align-items:center;justify-content:center;font:800 18px var(--ui);border-radius:6px;border:1px solid #ffffff33;min-height:52px}
+.pr.p1{border-color:var(--red);color:var(--red)}.pr.p2{border-color:#ff9f5a;color:#ffbe8a}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}.row>*{flex:1 1 140px}
+.att img{max-width:100%;border:1px solid #ffffff33;border-radius:4px;margin-top:8px}
+.hiddenmark{color:var(--red);font-weight:700}
+#login{max-width:460px}
+@media(max-width:900px){.adm{grid-template-columns:1fr}.pane{position:static;max-height:none}}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="wrap header-inner"><a class="logo" href="./">HOME<span>LANCER</span></a><nav><a href="#reports">Reports</a><a href="#patch-editor">Patch notes</a></nav><button type="button" class="btn small" id="logout" hidden>Sign out</button></div></header>
+<main class="wrap" style="padding:26px 0 60px">
+<h1 style="font-size:clamp(38px,6vw,64px)">Developer dashboard</h1>
+<section id="login">
+<p class="lead" style="font-size:16px">Enter the admin key (the <code>FEEDBACK_ADMIN_KEY</code> you set). It is kept only for this browser tab.</p>
+<label for="key">Admin key</label><input type="text" id="key" autocomplete="off" spellcheck="false">
+<div class="form-actions" style="justify-content:flex-start"><button type="button" class="btn primary" id="signin">Sign in</button></div>
+<p class="msg" id="login-msg" role="status"></p>
+</section>
+<div id="app" hidden>
+<section id="reports">
+<div class="tools">
+<select id="a-view" aria-label="Which reports"><option value="">Visible</option><option value="hidden">Hidden / flagged</option><option value="all">Everything</option></select>
+<select id="a-cat" aria-label="Category"><option value="">All categories</option><option value="bug">Bug reports</option><option value="feedback">Gameplay feedback</option><option value="suggestion">Feature suggestions</option><option value="discussion">General discussion</option></select>
+<select id="a-status" aria-label="Status"><option value="">All statuses</option><option value="new">New Report</option><option value="review">Under Review</option><option value="confirmed">Confirmed</option><option value="in_progress">Fix in Progress</option><option value="fixed">Fixed</option><option value="released">Released in Update</option><option value="cannot_reproduce">Unable to Reproduce</option></select>
+<select id="a-sort" aria-label="Sort"><option value="priority">Priority</option><option value="top">Most votes</option><option value="new">Newest</option><option value="recent">Recently active</option></select>
+<input type="search" id="a-q" placeholder="Search" aria-label="Search">
+</div>
+<div class="adm"><div class="list" id="a-list"></div><div class="pane" id="a-pane"><p class="hint">Pick a report to review it.</p></div></div>
+<button type="button" class="btn more" id="a-more" hidden>Show more</button>
+</section>
+<section class="block" id="patch-editor">
+<h2>Patch notes</h2>
+<p class="hint">Publish only changes that shipped in a real update. One change per line, starting with <b>fixed:</b>, <b>improved:</b>, <b>added:</b> or <b>in progress:</b> (add <code>#12</code> to link report 12).</p>
+<div class="row"><div><label for="pv">Version</label><input type="text" id="pv" placeholder="v1.9q"></div><div><label for="pd">Release date</label><input type="text" id="pd" placeholder="YYYY-MM-DD"></div><div><label for="pt">Title</label><input type="text" id="pt" value="Homelancer Beta"></div></div>
+<label for="pi">Confirmed changes</label><textarea id="pi" rows="6" placeholder="fixed: Jump gate loading issue #12&#10;improved: Mobile flight controls"></textarea>
+<label style="display:flex;gap:8px;align-items:center"><input type="checkbox" id="ppub" checked> Publish now (untick to save a draft)</label>
+<div class="form-actions" style="justify-content:flex-start"><button type="button" class="btn primary" id="psave">Save patch notes</button><button type="button" class="btn" id="pnew">New</button></div>
+<p class="msg" id="pmsg" role="status"></p>
+<div id="plist"></div>
+</section>
+</div>
+</main>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080d19">
+<meta name="description" content="Help build Homelancer: report bugs, vote on what matters most, share feedback and suggestions, and read the latest fixes. Free — no donation needed.">
+<title>Help Build Homelancer — Bugs, Feedback &amp; Fixes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Chakra+Petch:wght@600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="help.css">
+</head>
+<body>
+<a class="skip" href="#tracker">Skip to the reports</a>
+<header class="site-header"><div class="wrap header-inner">
+<a class="logo" href="../" aria-label="Homelancer home">HOME<span>LANCER</span></a>
+<nav aria-label="Page sections"><a href="#tracker">Reports</a><a href="#patches">Latest fixes</a><a href="#rules">How it works</a></nav>
+<a class="btn primary small" href="https://houawanych-pixel.github.io/homelancer-digital/">▶ Play</a>
+</div></header>
+<main>
+<section class="hero"><div class="wrap">
+<span class="eyebrow">Community</span>
+<h1>Help Build Homelancer</h1>
+<p class="lead">Found something broken? Have an idea? Tell us here. Vote for the problems you hit too, so the most common ones get fixed first.</p>
+<p class="free-note">Free for everyone: you never need to donate to report, vote, comment or test.</p>
+<div class="hero-actions">
+<button type="button" class="btn primary" id="report-bug">🐞 Report a Bug</button>
+<button type="button" class="btn" id="post-feedback">Share feedback or an idea</button>
+</div>
+<p class="notice" id="offline" hidden>Reports are being switched on. You can read the latest fixes below; the report form opens very soon.</p>
+</div></section>
+
+<section class="block" id="tracker" aria-labelledby="tracker-title"><div class="wrap">
+<h2 id="tracker-title">Community board</h2>
+<div class="tabs" role="group" aria-label="Category">
+<button type="button" data-cat="bug" aria-pressed="true">Bug Reports</button>
+<button type="button" data-cat="feedback" aria-pressed="false">Gameplay Feedback</button>
+<button type="button" data-cat="suggestion" aria-pressed="false">Feature Suggestions</button>
+<button type="button" data-cat="discussion" aria-pressed="false">General Discussion</button>
+</div>
+<div class="tools">
+<input type="search" id="q" placeholder="Search reports…" aria-label="Search reports">
+<select id="status" aria-label="Filter by status">
+<option value="">All statuses</option><option value="new">New Report</option><option value="review">Under Review</option><option value="confirmed">Confirmed</option>
+<option value="in_progress">Fix in Progress</option><option value="fixed">Fixed</option><option value="released">Released in Update</option><option value="cannot_reproduce">Unable to Reproduce</option>
+</select>
+<select id="sort" aria-label="Sort"><option value="top">Most votes</option><option value="new">Newest</option><option value="recent">Recently active</option></select>
+</div>
+<div class="list" id="list" aria-live="polite"></div>
+<button type="button" class="btn more" id="more" hidden>Show more</button>
+</div></section>
+
+<section class="block" id="patches" aria-labelledby="patches-title"><div class="wrap">
+<h2 id="patches-title">Latest fixes &amp; updates</h2>
+<p class="hint">Only changes that shipped in a real game update are listed here.</p>
+<div id="patch-list"></div>
+</div></section>
+
+<section class="block" id="rules" aria-labelledby="rules-title"><div class="wrap">
+<h2 id="rules-title">How it works</h2>
+<ul class="rules">
+<li><b>Report once, vote often.</b> Before you post, the form shows similar reports. If yours is there, vote for it instead.</li>
+<li><b>Statuses:</b> New Report → Under Review → Confirmed → Fix in Progress → Fixed → Released in Update (or Unable to Reproduce).</li>
+<li><b>Fix order:</b> game-breaking bugs first, then multiplayer problems, major gameplay issues, visual issues, then feature suggestions.</li>
+<li><b>Your privacy:</b> no account or email needed. Screenshots and video links go only to the developer. Your name is optional and is the only thing shown.</li>
+<li><b>Be kind.</b> Spam and abuse are removed. Flag anything that breaks the rules.</li>
+<li><b>Final say:</b> community feedback guides the priorities; the developer keeps final creative control.</li>
+<li><b>Free:</b> donations are never required to report, comment, vote or test.</li>
+</ul>
+</div></section>
+</main>
+<footer><div class="wrap footer-inner"><span>© 2026 Homelancer · Independent game in development</span><span><a href="../">Homelancer home</a> · <a href="https://houawanych-pixel.github.io/homelancer-digital/">Play the beta</a></span></div></footer>
+
+<dialog id="form-dlg" aria-labelledby="form-title">
+<form id="post-form" novalidate>
+<div class="dlg-head"><h2 id="form-title">Report a bug</h2><button type="button" class="x" data-close aria-label="Close">×</button></div>
+<div class="dlg-body">
+<label for="f-cat">What is it?</label>
+<select class="full" id="f-cat" name="cat"><option value="bug">Bug report</option><option value="feedback">Gameplay feedback</option><option value="suggestion">Feature suggestion</option><option value="discussion">General discussion</option></select>
+<div id="area-wrap"><label for="f-area">What kind of problem?</label>
+<select class="full" id="f-area" name="area">
+<option value="crash">Game crash or freezing</option><option value="loading">Spaceships or stations not loading</option><option value="models">Missing or broken 3D models</option>
+<option value="controls">Flight controls not responding</option><option value="combat">Combat or weapons malfunctioning</option><option value="multiplayer">Multiplayer or PvP problem</option>
+<option value="gates">Jump gate or docking issue</option><option value="mobile">Mobile touchscreen problem</option><option value="graphics">Graphics, animation or sound bug</option>
+<option value="other" selected>Something else</option></select></div>
+<label for="f-title">Title <span class="opt">(required)</span></label>
+<input type="text" id="f-title" name="title" maxlength="120" required autocomplete="off" placeholder="e.g. Ship disappears after docking at a jump gate">
+<div class="dups" id="dups" hidden></div>
+<label for="f-body">Describe the problem <span class="opt">(required)</span></label>
+<textarea id="f-body" name="body" maxlength="4000" required placeholder="What happened, and what did you expect?"></textarea>
+<div id="bug-extra">
+<label for="f-location">Where did it happen? <span class="opt">(optional)</span></label>
+<input type="text" id="f-location" name="location" maxlength="300" placeholder="System, station, planet or screen">
+<label for="f-steps">Steps to make it happen again <span class="opt">(optional)</span></label>
+<textarea id="f-steps" name="steps" maxlength="2000" placeholder="1. …&#10;2. …"></textarea>
+<label for="f-device">Device or platform <span class="opt">(optional)</span></label>
+<input type="text" id="f-device" name="device" maxlength="300">
+<label for="f-shot">Screenshot <span class="opt">(optional · only the developer sees it)</span></label>
+<input type="file" id="f-shot" accept="image/png,image/jpeg,image/webp">
+<p class="hint" id="shot-hint">PNG, JPEG or WebP. Big pictures are shrunk before sending.</p>
+<label for="f-video">Short video link <span class="opt">(optional · only the developer sees it)</span></label>
+<input type="url" id="f-video" name="video_url" maxlength="400" placeholder="https://…">
+</div>
+<label for="f-fix" id="fix-label">Suggested fix <span class="opt">(optional)</span></label>
+<textarea id="f-fix" name="fix" maxlength="2000"></textarea>
+<label for="f-name">Your name <span class="opt">(optional · shown publicly · no email or contact details)</span></label>
+<input type="text" id="f-name" name="name" maxlength="24" autocomplete="nickname">
+<div class="hp" aria-hidden="true"><label for="f-website">Leave this empty</label><input type="text" id="f-website" name="website" tabindex="-1" autocomplete="off"></div>
+<p class="msg" id="form-msg" role="status"></p>
+<div class="form-actions"><button type="button" class="btn" data-close>Cancel</button><button type="submit" class="btn primary" id="f-send">Send</button></div>
+</div>
+</form>
+</dialog>
+
+<dialog id="detail-dlg" aria-labelledby="d-title">
+<div class="dlg-head"><h2 id="d-title" style="font-size:24px"></h2><button type="button" class="x" data-close aria-label="Close">×</button></div>
+<div class="dlg-body" id="d-body"></div>
+</dialog>
+
+<script src="help.js"></script>
+</body>
+</html>

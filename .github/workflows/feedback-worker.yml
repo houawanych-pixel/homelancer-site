@@ -1,0 +1,77 @@
+# Deploys the community feedback server (worker/feedback.js) to Cloudflare and points help/feedback.json at it.
+# One-time setup (repo Settings -> Secrets and variables -> Actions -> New repository secret):
+#   CLOUDFLARE_API_TOKEN   a Cloudflare API token with "Workers Scripts: Edit" and "D1: Edit"
+#   CLOUDFLARE_ACCOUNT_ID  your Cloudflare account ID
+#   FEEDBACK_ADMIN_KEY     a long random password for the developer dashboard (help/admin.html), 20+ characters
+# Then run this workflow once (Actions -> Deploy feedback server -> Run workflow). It is safe to run again.
+name: Deploy feedback server
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['worker/**', '.github/workflows/feedback-worker.yml']
+permissions:
+  contents: write
+concurrency: { group: feedback-worker, cancel-in-progress: false }
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      ADMIN_KEY: ${{ secrets.FEEDBACK_ADMIN_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check the secrets
+        id: ready
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ] || [ ${#ADMIN_KEY} -lt 20 ]; then
+            echo "::notice::Feedback server not deployed: add CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID and FEEDBACK_ADMIN_KEY (20+ characters) as repository secrets, then run this workflow."
+            echo "ok=no" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=yes" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/setup-node@v4
+        if: steps.ready.outputs.ok == 'yes'
+        with: { node-version: 20 }
+      - name: Database
+        if: steps.ready.outputs.ok == 'yes'
+        working-directory: worker
+        run: |
+          npm i --no-save --silent wrangler@3
+          W="npx wrangler"
+          id=$($W d1 list --json | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const l=JSON.parse(s);const d=l.find(x=>x.name==='homelancer-feedback');process.stdout.write(d?d.uuid:'')})")
+          if [ -z "$id" ]; then
+            $W d1 create homelancer-feedback
+            id=$($W d1 list --json | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const l=JSON.parse(s);process.stdout.write((l.find(x=>x.name==='homelancer-feedback')||{}).uuid||'')})")
+          fi
+          [ -n "$id" ] || { echo "::error::Could not create or find the D1 database"; exit 1; }
+          sed -i "s/^database_id = .*/database_id = \"$id\"/" wrangler.toml
+          $W d1 execute homelancer-feedback --remote --file schema.sql -y
+          $W d1 execute homelancer-feedback --remote --file seed-patches.sql -y
+      - name: Deploy
+        if: steps.ready.outputs.ok == 'yes'
+        id: deploy
+        working-directory: worker
+        run: |
+          W="npx wrangler"
+          $W deploy 2>&1 | tee deploy.log
+          url=$(grep -oE 'https://homelancer-feedback\.[a-z0-9-]+\.workers\.dev' deploy.log | head -1)
+          [ -n "$url" ] || { echo "::error::Deployed, but could not read the worker address"; exit 1; }
+          printf '%s' "$ADMIN_KEY" | $W secret put ADMIN_KEY
+          if ! $W secret list | grep -q '"SALT"'; then head -c 32 /dev/urandom | base64 | tr -d '\n' | $W secret put SALT; fi
+          curl -fsS "$url/api/health"
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+          echo "::notice::Feedback server live at $url"
+      - name: Point the website at it
+        if: steps.ready.outputs.ok == 'yes'
+        run: |
+          want="{\"api\": \"${{ steps.deploy.outputs.url }}\"}"
+          if [ "$(cat help/feedback.json)" != "$want" ]; then
+            echo "$want" > help/feedback.json
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add help/feedback.json
+            git commit -m "Point the community board at the feedback server"
+            git push
+          fi
